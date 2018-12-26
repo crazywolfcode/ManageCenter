@@ -135,13 +135,15 @@ namespace ManageCenter
                 {
                     if (user != null)
                     {
-                        if (user.stationId != App.mStation.id)
-                        {
-                            MMessageBox.GetInstance().ShowBox("你不属于该验票站 ，禁止登陆", "提示", MMessageBox.ButtonType.Yes, MMessageBox.IconType.warring, Orientation.Horizontal, "好");
-                            this.AlertPanel.Visibility = Visibility;
-                            this.AlertTb.Text = "你不属于该验票站 ，禁止登陆";
-                            return;
-                        }
+                        if (user.roleLevel !=(int) RoleLevelType.XTZZ) {
+                            if (user.stationId != App.mStation.id)
+                            {
+                                MMessageBox.GetInstance().ShowBox("禁止登陆", "提示", MMessageBox.ButtonType.Yes, MMessageBox.IconType.warring, Orientation.Horizontal, "好");
+                                this.AlertPanel.Visibility = Visibility;
+                                this.AlertTb.Text = "你不属于监管中心的人员 ，禁止登陆";
+                                return;
+                            }
+                        }                       
                         App.currentUser = user;
                         DoubleAnimation animation = new DoubleAnimation
                         {
@@ -161,7 +163,6 @@ namespace ManageCenter
                         return;
                     }
                 }), System.Windows.Threading.DispatcherPriority.Normal);
-
             }));
             thread.Start();
         }

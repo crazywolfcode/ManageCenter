@@ -3,10 +3,198 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ManageCenter"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        xmlns:local="clr-namespace:ManageCenter" ResizeMode="CanResizeWithGrip"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized" ContentRendered="Window_ContentRendered"
+        xmlns:myui="clr-namespace:MyCustomControlLibrary;assembly=MyCustomControlLibrary"
+        Icon="/ManageCenter;component/aislogo_48.ico"
+        mc:Ignorable="d" Loaded="Window_Loaded" Closing="Window_Closing" SizeChanged="Window_SizeChanged"
+        Title="煤炭运煤监管系统 v1.0.1正试版" 
+        Height="600" Width="800" MinWidth="900" MinHeight="600">
+    <Window.Resources>
+        <local:UpStatusConverter x:Key="upStatusConverter"/>
+        <local:CashBtnVisbilityConvetter x:Key="cashBtnVisbilityConvetter"/>
+        <Style TargetType="MenuItem">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#3ca9fe"/>
+            <Setter Property="BorderBrush" Value="#007acc"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="6,2,6,2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <!--菜单项MenuItem Template-->
+                        <Border x:Name="border" Background="Transparent" Height="{TemplateBinding Height}" Opacity="1" >
+                            <Grid VerticalAlignment="Center" Margin="{TemplateBinding Margin}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition x:Name="icon_col" MaxWidth="35" SharedSizeGroup="MenuItemIconColumnGroup"/>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="MenuTextColumnGroup"/>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="MenuItemIGTColumnGroup"/>
+                                    <ColumnDefinition Width="16" x:Name="arrow_col" SharedSizeGroup="MenumItemArrow"/>
+                                </Grid.ColumnDefinitions>
+                                <!--icon-->
+                                <myui:IconTextBlock x:Name="PART_Icon" 
+                                       Text="{TemplateBinding Icon}" 
+                                       Foreground="{TemplateBinding Foreground}" 
+                                       Margin="5,1,4,1"
+                                       FontSize="{TemplateBinding local:ControlAttachProperty.IconSize}"                            
+                                       />
+                                <!--Header-->
+                                <ContentPresenter Grid.Column="1" x:Name="txtHeader" 
+                                          Margin="3,1,5,1" MinWidth="90"
+                                          RecognizesAccessKey="True" 
+                                          VerticalAlignment="Center" 
+                                          ContentSource="Header"/>
+                                <!--快捷键 InputGestureText 暂不支持你了 -->
+                                <TextBlock Grid.Column="2" Margin="3,1,3,1" x:Name="IGTHost" 
+                                       Text="{TemplateBinding InputGestureText}" 
+                                       FontSize="{TemplateBinding FontSize}"
+                                       VerticalAlignment="Center" Visibility="Visible" 
+                                       Foreground="{TemplateBinding Foreground}" />
+                                <!--右指针-->
+                                <myui:IconTextBlock x:Name="PART_Arrow" Grid.Column="3" 
+                                       Text="&#xe63e;" 
+                                       Foreground="{TemplateBinding Foreground}" 
+                                       FontSize="12" 
+                                      />
+                                <!--淡出子集菜单容器-->
+                                <Popup x:Name="SubMenuPopup" 
+                                           AllowsTransparency="true"
+                                           IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}" 
+                                           Placement="Bottom" 
+                                           Focusable="false" 
+                                           VerticalOffset="0"
+                                           PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}">
+                                    <Border Background="{TemplateBinding Background}" 
+                                            CornerRadius="{TemplateBinding local:ControlAttachProperty.CornerRadius}" 
+                                            Margin="5"
+                                            Effect="{DynamicResource DefaultDropShadow}"
+                                            BorderBrush="{TemplateBinding BorderBrush}" 
+                                            BorderThickness="{TemplateBinding BorderThickness}">
+                                        <Grid x:Name="SubMenu" Grid.IsSharedSizeScope="True">
+                                            <StackPanel Margin="0" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                                        </Grid>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </Border>
+                        <!--触发器-->
+                        <ControlTemplate.Triggers>
+                            <!--TopLevelHeader:第一级菜单（有子菜单）-->
+                            <Trigger Property="Role" Value="TopLevelHeader">
+                                <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Arrow"/>
+                                <Setter Property="Visibility" Value="Collapsed" TargetName="IGTHost"/>
+                                <Setter Property="Margin" Value="5,1,1,1" TargetName="PART_Icon"/>
+                                <Setter Property="Margin" Value="1,1,6,1" TargetName="txtHeader"/>
+                                <Setter Property="MinWidth" Value="10" TargetName="txtHeader"/>
+                                <Setter Property="Width" Value="0" TargetName="arrow_col"/>
+                            </Trigger>
+                            <!--TopLevelItem 第一级菜单（无子级）-->
+                            <Trigger Property="Role" Value="TopLevelItem">
+                                <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Arrow"/>
+                                <Setter Property="Visibility" Value="Collapsed" TargetName="IGTHost"/>
+                                <Setter Property="Margin" Value="5,1,1,1" TargetName="PART_Icon"/>
+                                <Setter Property="Margin" Value="1,1,6,1" TargetName="txtHeader"/>
+                                <Setter Property="MinWidth" Value="10" TargetName="txtHeader"/>
+                                <Setter Property="Width" Value="0" TargetName="arrow_col"/>
+                            </Trigger>
+                            <!--SubmenuHeader:子菜单，有子菜单-->
+                            <Trigger Property="Role" Value="SubmenuHeader">
+                                <Setter Property="Visibility" Value="Visible" TargetName="PART_Arrow"/>
+                                <Setter Property="Placement" Value="Right" TargetName="SubMenuPopup"/>
+                                <Setter Property="HorizontalOffset" Value="2" TargetName="SubMenuPopup"/>
+                            </Trigger>
+                            <!--SubMenuItem:子菜单，无子级-->
+                            <Trigger Property="Role" Value="SubMenuItem">
+                                <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Arrow"/>
+                            </Trigger>
+                            <!--选中状态，优先级将高于Icon-->
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="PART_Icon" Value="&#xe62a;" Property="Text"></Setter>
+                                <Setter TargetName="PART_Icon" Value="18" Property="FontSize"></Setter>
+                                <Setter TargetName="PART_Icon" Value="{DynamicResource CheckedForeground}" Property="Foreground"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Value="{DynamicResource DisableOpacity}" Property="Opacity"></Setter>
+                            </Trigger>
+                            <!--高亮状态-->
+                            <Trigger Property="IsHighlighted" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource MenuMouseOverBackground}"></Setter>
+                                <Setter Property="Foreground" Value="{DynamicResource MenuMouseOverForeground}"></Setter>
+                            </Trigger>
+                            <!--按下状态-->
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource MenuPressedBackground}"></Setter>
+                                <Setter Property="Foreground" Value="{DynamicResource MenuPressedForeground}"></Setter>
+                            </Trigger>
+                            <!--子菜单打开状态-->
+                            <Trigger Property="IsSubmenuOpen" Value="true" >
+                                <Setter TargetName="PART_Arrow" Value="{DynamicResource CheckedForeground}" Property="Foreground"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="MainBodyGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="28"/>
+        </Grid.RowDefinitions>
+        <!--菜单-->
+        <DockPanel Background="#3ca9fe" >
+            <Menu Grid.Row="0"  VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" >
+                <MenuItem Header=" 设置 " VerticalContentAlignment="Center"  Background="#3ca9fe">
+                    <MenuItem Header="基本设置" Icon="&#xe650;" x:Name="BaseSettingMI"  Click="MenuItem_Click"/>
+                    <MenuItem Header="高级设置" Icon="&#xe688;" x:Name="HeithtSettintMI"  Click="MenuItem_Click"/>
+                    <MenuItem Header="系统设置" Icon="&#xe668;" x:Name="SystemSettintMI"  Click="MenuItem_Click"/>
+                </MenuItem>
+                <MenuItem Header="管理" >                  
+                    <MenuItem Header="用户管理" Icon="&#xf031c;" x:Name="UserManagerMI"   Click="MenuItem_Click"/>
+                    <MenuItem Header="公司管理" Icon="&#xe88f;"  x:Name="CompanyManageMI"  Click="MenuItem_Click" InputGestureText="a" ></MenuItem>
+                    <MenuItem Header="物料管理" >
+                        <MenuItem Header="煤种列表"  x:Name="MaterialManageMI"  Click="MenuItem_Click"></MenuItem>
+                        <MenuItem Header="添加煤种" x:Name="AddMaterialMI"  Click="MenuItem_Click"></MenuItem>
+                    </MenuItem>
+                    <MenuItem  Header="车辆管理" Icon="&#xe882;">
+                        <MenuItem Header="车辆信息列表" x:Name="CarManageMI"   Click="MenuItem_Click"></MenuItem>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="班助(H)" >
+                    <MenuItem Header="关于软件" Icon="&#xe668;" x:Name="AboutMI"  Click="MenuItem_Click"/>
+                    <MenuItem Header="联系方试" Icon="&#xe8be;" x:Name="ConnMeMI"  Click="MenuItem_Click"/>
+                </MenuItem>
+            </Menu>
+            <WrapPanel  Margin="0,0,2,0" HorizontalAlignment="Right">
+                <myui:IconButton x:Name="CurrUserBtn" Content="陈龙飞" Icon="&#xf031c;" IconSize="18" FontSize="14" FontWeight="Bold" IsTransparency="True" Width="120" IconMargin="8,2,4,0" MouseOverBackground="White" MouseOverForeground="#3ca9fe" ToolTip="当前用户"/>
+                <TextBlock x:Name="RoleNameTb" Text="系统管理员" VerticalAlignment="Bottom" Margin="6,0,12,2" Foreground="White"/>
+                <myui:IconButton x:Name="LogoutBtn" Icon="&#xe893;" IsTransparency="True" Width="28" Height="30" IconSize="20" IsShowIcon="True" MouseOverBackground="White" MouseOverForeground="#3ca9fe" ToolTip="退出" Click="LogoutBtn_Click" />
+            </WrapPanel>
+        </DockPanel>
+
+  
+        <!--提示区-->
+        <StackPanel Grid.Row="6">
+            <StatusBar Height="28" Background="{DynamicResource myBlueDrak}" Foreground="White" HorizontalContentAlignment="Center" x:Name="StatusBarSb">
+                <StatusBarItem>
+                    <TextBlock Text="StatusBar"/>
+                </StatusBarItem>              
+                <StatusBarItem x:Name="SoftExpiredSBI" Visibility="Collapsed">
+                    <WrapPanel Margin="20,0,20,0">
+                        <myui:IconTextBlock Text="&#xe668;" FontSize="18" Foreground="White" />
+                        <TextBlock x:Name="SoftExpiredAlertTB" Text="系统将在 30 天后服务到期" Margin="10,4,0,0"/>
+                    </WrapPanel>
+                </StatusBarItem>
+                <StatusBarItem Visibility="Collapsed">
+                    <TextBlock x:Name="currTimeTb" Text="2018-12-12 00:00:00" FontSize="14" FontWeight="Black" HorizontalAlignment="Center" />
+                </StatusBarItem>
+            </StatusBar>
+        </StackPanel>
     </Grid>
 </Window>

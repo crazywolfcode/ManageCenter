@@ -88,7 +88,8 @@ namespace ManageCenter
                 return;
             }
             string pwd = this.pwdTb.Text.Trim();
-            string connstr =DatabaseOPtionHelper.GetInstance().BuildConnectionString(ip, dbname, userid, pwd, port);
+            string connstr = CommonFunction.BuildMyqlconn(dbname,ip,userid,pwd,port);
+            ConfigurationHelper.SetConnectionConfig(ConfigItemName.mysqlConn.ToString(), connstr);
             if (DatabaseOPtionHelper.GetInstance().CheckConn(connstr))
             {
                 try

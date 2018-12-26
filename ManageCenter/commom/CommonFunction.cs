@@ -66,6 +66,11 @@ namespace ManageCenter
             }
             return res;
         }
-        
+        public static readonly string connectionStringTemplate = "Database={0};Data Source={1};User Id={2};Password={3};pooling=false;CharSet=utf8;port={4};";        
+        public static string BuildMyqlconn(String db,String ip, String user, String pwd, String port)
+        {
+            return string.Format(connectionStringTemplate, db, ip, user, pwd, port);
+        }
     }
 }
+

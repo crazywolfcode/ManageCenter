@@ -25,8 +25,8 @@
                 </StackPanel>
                 <StackPanel x:Name="HeightSettingPanel" Visibility="Collapsed">
                     <RadioButton x:Name="limitSettingRB" GroupName="name"  Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969"   Checked="limitSettingRB_Checked" >合理的磅差</RadioButton>
-                    <RadioButton x:Name="scaleSettingRB" GroupName="name"  Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969"  Checked="scaleSettingRB_Checked">磅称显示器</RadioButton>
-                    <RadioButton x:Name="IcreaderSettingRB" GroupName="name"   Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969" Checked="IcreaderSettingRB_Checked"  >车辆读卡器</RadioButton>
+                    <RadioButton x:Name="scaleSettingRB" GroupName="name"  Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969"  Checked="scaleSettingRB_Checked" Visibility="Collapsed">磅称显示器</RadioButton>
+                    <RadioButton x:Name="IcreaderSettingRB" GroupName="name"   Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969" Checked="IcreaderSettingRB_Checked" Visibility="Collapsed" >车辆读卡器</RadioButton>
                 </StackPanel>
                 <StackPanel x:Name="systemSettingPanel" Visibility="Collapsed">
                     <RadioButton x:Name="softexpriceRB" GroupName="name"   Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969">软件期限</RadioButton>                    
@@ -92,7 +92,8 @@
                                 </WrapPanel>
                                 <WrapPanel Margin="20,4,4,4">
                                     <Label Content="磅差值："/>
-                                    <TextBox x:Name="limitToneTB"  FontSize="14" Width="120" Text="3"  VerticalContentAlignment="Center" TextChanged="limitToneTB_TextChanged"/>
+                                    <TextBox x:Name="limitToneTB"  FontSize="14" Width="120" Text="3"  VerticalContentAlignment="Center" />
+                                    <myui:IconButton Icon="&#xe63c;" Width="28" IconSize="14" ToolTip="设定" IconMargin="4" MouseOverBackground="#3ca9fe" MouseOverForeground="White" FontWeight="Black" x:Name="limitBtn" Click="limitBtn_Click"/>
                                     <Label Content="说明：以吨为单位，如1.2" Foreground="#797979"/>
                                 </WrapPanel>
 

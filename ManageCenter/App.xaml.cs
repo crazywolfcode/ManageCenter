@@ -175,8 +175,7 @@ namespace ManageCenter
             thread.IsBackground = true;
             thread.Start();
             //InsertOrUpdateAppSettings();
-            SaveTempData();
-        
+            SaveTempData();        
             Thread.Sleep(1200);
             //}
             //catch (Exception exception)
@@ -252,61 +251,65 @@ namespace ManageCenter
         /// </summary>
         private void InsertOrUpdateAppSettings()
         {
-            SqlDao.DbHelper helper = DatabaseOPtionHelper.GetInstance(); ;
-            string sql = string.Empty;
-            NameValueCollection collection = ConfigurationManager.AppSettings;
-            string[] keys = collection.AllKeys;
-            foreach (string key in keys)
-            {
-                Config config = null;
-                String condition = ConfigColumns.station_id + " ='" + ConfigurationHelper.GetConfig(ConfigItemName.CurrStationId.ToString()) + "' and " + ConfigColumns.config_name.ToString() + " = '" + key + "'";
-                sql = helper.getSelectSql(TableName.config.ToString(), null, condition, null, null, null, 1);
-                List<Config> configs = helper.select<Config>(sql);
-                if (configs != null && configs.Count > 0)
+            try {
+                SqlDao.DbHelper helper = DatabaseOPtionHelper.GetInstance(); ;
+                string sql = string.Empty;
+                NameValueCollection collection = ConfigurationManager.AppSettings;
+                string[] keys = collection.AllKeys;
+                foreach (string key in keys)
                 {
-                    if (configs[0] != null)
+                    Config config = null;
+                    String condition = ConfigColumns.station_id + " ='" + ConfigurationHelper.GetConfig(ConfigItemName.CurrStationId.ToString()) + "' and " + ConfigColumns.config_name.ToString() + " = '" + key + "'";
+                    sql = helper.getSelectSql(TableName.config.ToString(), null, condition, null, null, null, 1);
+                    List<Config> configs = helper.select<Config>(sql);
+                    if (configs != null && configs.Count > 0)
                     {
-                        config = configs[0];
-                        if (config.configValue != collection[key].ToString())
+                        if (configs[0] != null)
                         {
-                            config.configValue = collection[key].ToString();
-                            config.lastUpdateTime = DateTime.Now;
-                            if (App.currentUser != null)
+                            config = configs[0];
+                            if (config.configValue != collection[key].ToString())
                             {
-                                config.lastUpdateUserId = App.currentUser.id;
-                                config.lastUpdateUserName = App.currentUser.name;
+                                config.configValue = collection[key].ToString();
+                                config.lastUpdateTime = DateTime.Now;
+                                if (App.currentUser != null)
+                                {
+                                    config.lastUpdateUserId = App.currentUser.id;
+                                    config.lastUpdateUserName = App.currentUser.name;
+                                }
                             }
+                            helper.update(config);
                         }
-                        helper.update(config);
+                        else
+                        {
+                            //conveter error
+                        }
                     }
                     else
                     {
-                        //conveter error
+                        config = new Config
+                        {
+                            id = Guid.NewGuid().ToString(),
+                            addTime = DateTime.Now,
+                            configName = key,
+                            stationId = ConfigurationHelper.GetConfig(ConfigItemName.CurrStationId.ToString()),
+                            configValue = collection[key].ToString(),
+                            configType = (int)ConfigType.ClientAppConfig
+                        };
+                        config.lastUpdateTime = config.addTime;
+                        if (App.currentUser != null)
+                        {
+                            config.addUserId = App.currentUser.id;
+                            config.addUserName = App.currentUser.name;
+                            config.lastUpdateUserId = config.addUserId;
+                            config.lastUpdateUserName = config.addUserName;
+                        }
+                        helper.insert(config);
                     }
                 }
-                else
-                {
-                    config = new Config
-                    {
-                        id = Guid.NewGuid().ToString(),
-                        addTime = DateTime.Now,
-                        configName = key,
-                        stationId = ConfigurationHelper.GetConfig(ConfigItemName.CurrStationId.ToString()),
-                        configValue = collection[key].ToString(),
-                        configType = (int)ConfigType.ClientAppConfig
-                    };
-                    config.lastUpdateTime = config.addTime;
-                    if (App.currentUser != null)
-                    {
-                        config.addUserId = App.currentUser.id;
-                        config.addUserName = App.currentUser.name;
-                        config.lastUpdateUserId = config.addUserId;
-                        config.lastUpdateUserName = config.addUserName;
-                    }
-                    helper.insert(config);
-                }
-
-            }
+            } catch (Exception e) {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+            }                     
         }
 
         /// <summary>

@@ -35,13 +35,19 @@ using System.Text;
 
 	 public String remark{ get; set; }
 
-	 /// <summary>
-	 /// 注释:添加时间
-	 /// 可空:NO
-	 ///默认值:CURRENT_TIMESTAMP
-	 /// </summary>
+        /// <summary>
+        /// 角色级别 0 验票员 1 审核员 2 监管员 3系统作者
+        /// </summary>
 
-	 public DateTime addTime{ get; set; }
+        public Int32 roleLevel { get; set; }
+        
+        /// <summary>
+        /// 注释:添加时间
+        /// 可空:NO
+        ///默认值:CURRENT_TIMESTAMP
+        /// </summary>
+
+        public DateTime addTime{ get; set; }
 
 	 /// <summary>
 	 /// 注释:最后变动时间

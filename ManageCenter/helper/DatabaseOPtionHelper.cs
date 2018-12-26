@@ -18,7 +18,7 @@ namespace ManageCenter
             if (Instance == null)
             {
                 string conn = ConfigurationHelper.GetConnectionConfig(ConfigItemName.mysqlConn.ToString());
-                    Instance = new SqlDao.MySqlHelper(conn);              
+                    Instance = new MySqlHelper(conn);              
             }
             return Instance;
         }
