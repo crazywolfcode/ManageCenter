@@ -1,0 +1,246 @@
+﻿<Window x:Class="ManageCenter.SettingW"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ManageCenter" 
+        xmlns:myui="clr-namespace:MyCustomControlLibrary;assembly=MyCustomControlLibrary"
+        Loaded="Window_Loaded" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"  WindowStyle="None"
+        Title="设置" Height="430" Width="620" Activated="Window_Activated" ContentRendered="Window_ContentRendered">
+    <Window.Resources>
+        <local:CheckedToVisibleConverter x:Key="CheckedToVisibleConverter"/>
+    </Window.Resources>
+    <Grid >        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0"  Background="#e4e4e4" Padding="0"  MouseMove="ConfigItemPanel_MouseMove">
+            <StackPanel x:Name="ConfigItemPanel" >            
+                <myui:IconTextBlock  Width="80" Height="80" Text="&#xe74c;" Foreground="{StaticResource myBlue}" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <StackPanel x:Name="BaseSettingPanel" Visibility="Collapsed">
+                    <RadioButton x:Name="PrintSetting" Checked="PrintSetting_Checked" GroupName="name" Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969">打印</RadioButton>             
+                </StackPanel>
+                <StackPanel x:Name="HeightSettingPanel" Visibility="Collapsed">
+                    <RadioButton x:Name="limitSettingRB" GroupName="name"  Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969"   Checked="limitSettingRB_Checked" >合理的磅差</RadioButton>
+                    <RadioButton x:Name="scaleSettingRB" GroupName="name"  Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969"  Checked="scaleSettingRB_Checked">磅称显示器</RadioButton>
+                    <RadioButton x:Name="IcreaderSettingRB" GroupName="name"   Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969" Checked="IcreaderSettingRB_Checked"  >车辆读卡器</RadioButton>
+                </StackPanel>
+                <StackPanel x:Name="systemSettingPanel" Visibility="Collapsed">
+                    <RadioButton x:Name="softexpriceRB" GroupName="name"   Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969">软件期限</RadioButton>                    
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="1"  Padding="0,4,4,4" Background="#f9f9f9">
+            <DockPanel Grid.Column="1" LastChildFill="True" >
+                <StackPanel DockPanel.Dock="Top" Height="25" Cursor="Hand" x:Name="windowTitle" Background="#f9f9f9" MouseMove="WindowTitle_MouseMove">
+                    <!--关闭按钮-->
+                    <myui:ImageButton Grid.Row="0"  BorderBrush="{x:Null}" Width="27" Height="22"  Margin="0,4,4,0" Content="" x:Name="CloseBtn" HorizontalAlignment="Right" VerticalAlignment="Top"   Click="CloseBtn_Click">
+                        <myui:ImageButton.MyMoverBrush>
+                            <ImageBrush ImageSource="/ManageCenter;component/Themes/Img/Button/xm.png"/>
+                        </myui:ImageButton.MyMoverBrush>
+                        <myui:ImageButton.MyEnterBrush>
+                            <ImageBrush ImageSource="/ManageCenter;component/Themes/Img/Button/xe.png"/>
+                        </myui:ImageButton.MyEnterBrush>
+                        <myui:ImageButton.Background>
+                            <ImageBrush ImageSource="/ManageCenter;component/Themes/Img/Button/xn.png" TileMode="FlipXY"/>
+                        </myui:ImageButton.Background>
+                    </myui:ImageButton>
+                  
+                </StackPanel>               
+                <myui:MyScrollViewer >
+                    <StackPanel>
+                        <!--基本设置-->
+                        <StackPanel  x:Name="BasesettingBodyPanel" Visibility="{Binding ElementName=BaseSettingPanel,Path=Visibility}">
+                            <!-- 打印 setting-->
+                            <StackPanel HorizontalAlignment="Left" Visibility="{Binding ElementName=PrintSetting,Path=Visibility}">
+                                <WrapPanel Margin="20,10,10,4">
+                                    <TextBlock  Text="开启自动打印" FontSize="14"  Height="25" Padding="4,4,0,0"/>
+                                    <myui:SwitchButton x:Name="StartAautoPtint" Icon="&#xe65e;" CheckedIcon="&#xe68f;" IconSize="24" CheckedForeground="{StaticResource myBlue}" Checked="StartAautoPtint_Checked"  Unchecked="StartAautoPtint_Unchecked"/>
+                                </WrapPanel>
+                                <WrapPanel Margin="20,4,4,4">
+                                    <Label Content="自动打印等待的时间"/>
+                                    <TextBox x:Name="autoPrintSecend"  FontSize="14" Width="50" Text="3" TextAlignment="Center" VerticalContentAlignment="Center" TextChanged="autoPrintSecend_TextChanged"/>
+                                    <Label Content="说明：以秒为单位，为0立即打印" Foreground="#797979"/>
+                                </WrapPanel>
+                                <WrapPanel Margin="20,4,4,4">
+                                    <Label Content="最大的打印次数"/>
+                                    <TextBox x:Name="PrintTimes"  FontSize="14" Width="50" Text="3" TextAlignment="Center" VerticalContentAlignment="Center" TextChanged="PrintTimes_TextChanged"/>
+                                </WrapPanel>
+                                <WrapPanel Margin="20,4,4,4">
+                                    <Label Content="磅单标题"/>
+                                    <TextBox x:Name="billTitlb" Text="云南省曲靖市富源县煤炭管理运煤放行单"  FontSize="14" Width="340"  VerticalContentAlignment="Center"/>
+                                    <myui:IconButton Icon="&#xe63c;" Width="28" IconSize="14" ToolTip="设定" IconMargin="4" MouseOverBackground="#3ca9fe" MouseOverForeground="White" FontWeight="Black" x:Name="BillTitle" Click="BillTitle_Click"/>
+                                </WrapPanel >
+                                <WrapPanel Margin="20,4,4,4">
+                                    <Label Content="磅单说明"/>
+                                    <TextBox x:Name="BillDescriptTb" Text="白联存根，红联财务，黄联运费，绿联随车，其它"  FontSize="14" Width="340"  VerticalContentAlignment="Center"/>
+                                    <myui:IconButton Icon="&#xe63c;" Width="28" IconSize="14" ToolTip="设定" IconMargin="4" MouseOverBackground="#3ca9fe" MouseOverForeground="White" FontWeight="Black" x:Name="BillDes" Click="BillDes_Click"/>
+                                </WrapPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!--高级设置-->
+                        <StackPanel  x:Name="HeightSettingBodyPanel" Visibility="{Binding ElementName=HeightSettingPanel,Path=Visibility}">
+                            <!--limitSettingRB-->
+                            <StackPanel HorizontalAlignment="Left" Visibility="{Binding ElementName=limitSettingRB,Path=IsChecked,Converter= {StaticResource CheckedToVisibleConverter}}">
+                                <WrapPanel Margin="20,10,10,4">
+                                    <TextBlock  Text="开启系统统一合理磅差" FontSize="14"  Height="25" Padding="4,4,0,0"/>
+                                    <myui:SwitchButton x:Name="UnifeidLimitToneRB" Icon="&#xe65e;" CheckedIcon="&#xe68f;" IconSize="24" CheckedForeground="{StaticResource myBlue}" Checked="UnifeidLimitToneRB_Checked"  Unchecked="UnifeidLimitToneRB_Unchecked"/>
+                                </WrapPanel>
+                                <WrapPanel Margin="20,4,4,4">
+                                    <Label Content="磅差值："/>
+                                    <TextBox x:Name="limitToneTB"  FontSize="14" Width="120" Text="3"  VerticalContentAlignment="Center" TextChanged="limitToneTB_TextChanged"/>
+                                    <Label Content="说明：以吨为单位，如1.2" Foreground="#797979"/>
+                                </WrapPanel>
+
+                            </StackPanel>
+                            <!--scaleSettingRB-->
+                            <StackPanel Visibility="{Binding ElementName=scaleSettingRB,Path=IsChecked,Converter={StaticResource CheckedToVisibleConverter}}">
+                                <StackPanel  HorizontalAlignment="Center">                                  
+                                    <WrapPanel Margin="0,10,0,0" >
+                                        <Label>可用串口：</Label>
+                                        <ComboBox  Width="160" x:Name="ComCb" ToolTip="磅秤的接连电脑的COM串口" Padding="4,0,0,0" VerticalContentAlignment="Center"/>
+                                        <Label  Margin="10,0,0,0" Foreground="#363636" Content="例如：COM3"/>
+                                    </WrapPanel>
+                                    <WrapPanel Margin="0,10,0,0" >
+                                        <Label>波 特 率 ：</Label>
+                                        <ComboBox  Width="160" x:Name="BaudRateCB" ToolTip="磅秤的波特率" Padding="4,0,0,0" VerticalContentAlignment="Center">
+                                            <ComboBoxItem>1200</ComboBoxItem>
+                                            <ComboBoxItem>2400</ComboBoxItem>
+                                            <ComboBoxItem>4800</ComboBoxItem>
+                                            <ComboBoxItem IsSelected="True">9600</ComboBoxItem>
+                                            <ComboBoxItem >19200</ComboBoxItem>
+                                            <ComboBoxItem >38400</ComboBoxItem>
+                                            <ComboBoxItem >115200</ComboBoxItem>
+                                        </ComboBox>
+                                        <Label x:Name="ComAlertLabel"  Margin="10,0,0,0" Foreground="#363636" Content="例如：9600"/>
+                                    </WrapPanel>
+
+                                    <WrapPanel Margin="0,10,0,0" >
+                                        <Label>数据位数：</Label>
+                                        <ComboBox  Width="160"  x:Name="DataByteCB" ToolTip="磅秤的数据位数" Padding="4,0,0,0" VerticalContentAlignment="Center">
+                                            <ComboBoxItem>5</ComboBoxItem>
+                                            <ComboBoxItem>6</ComboBoxItem>
+                                            <ComboBoxItem>7</ComboBoxItem>
+                                            <ComboBoxItem IsSelected="True">8</ComboBoxItem>
+                                        </ComboBox>
+                                        <Label  Margin="10,0,0,0" Foreground="#363636" Content="一般是 8 位"/>
+                                    </WrapPanel>
+                                    <WrapPanel Margin="0,10,0,0" >
+                                        <Label>结束位数：</Label>
+                                        <ComboBox  Width="160" x:Name="EndByteCB" ToolTip="磅秤的结束位数" Padding="4,0,0,0" VerticalContentAlignment="Center">
+                                            <ComboBoxItem IsSelected="True">1</ComboBoxItem>
+                                            <ComboBoxItem>1.5</ComboBoxItem>
+                                            <ComboBoxItem>2</ComboBoxItem>
+                                        </ComboBox>
+                                        <Label  Margin="10,0,0,0" Foreground="#363636" Content="一般为 1 位"/>
+                                    </WrapPanel>
+                                    <WrapPanel Margin="0,10,0,0" >
+                                        <Label>品牌名称：</Label>
+                                        <ComboBox  Width="160" x:Name="BrandCB" ToolTip="磅秤的品牌名称" Padding="4,0,0,0" IsEditable="False" VerticalContentAlignment="Center">
+                                            <ComboBoxItem >其它</ComboBoxItem>
+                                            <ComboBoxItem IsSelected="True">耀华系</ComboBoxItem>
+                                            <ComboBoxItem >宁波柯力</ComboBoxItem>
+                                            <ComboBoxItem >托利多</ComboBoxItem>
+                                            <ComboBoxItem >赛多利斯</ComboBoxItem>                                           
+                                        </ComboBox>
+                                        <Label  Margin="10,0,0,0" Foreground="Red" Content="必选"/>
+                                    </WrapPanel>
+                                    <WrapPanel Margin="0,10,0,0" >
+                                        <Label>磅秤系列：</Label>
+                                        <TextBox  Width="160" x:Name="SeriesTB" ToolTip="磅秤的磅秤系列号"  Padding="4,0,0,0" VerticalContentAlignment="Center"/>
+                                        <Label  Margin="10,0,0,0" Foreground="#363636" Content="可选"/>
+                                    </WrapPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                                        <myui:IconButton 
+                                            x:Name="saveBtn" 
+                                            Click="saveBtn_Click"
+                                            VerticalAlignment="Center" Margin="0,50,0,0"
+                                            VerticalContentAlignment="Center"
+                                            Padding="1"
+                                            Icon="&#xe77a;"
+                                            IsShowIcon="False"                                                                  
+                                            BorderBrush="#e0e0e0" 
+                                            Foreground="#666"
+                                            BorderThickness="1" 
+                                            Width="100"
+                                            Height="35"                 
+                                            CornerRadius="4"                                      
+                                            FontWeight="Bold" 
+                                            HorizontalAlignment="Center"      
+                                            HorizontalContentAlignment="Center"
+                                            MouseOverForeground="Black"
+                                            MouseOverBackground="White" Content="保 存" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                            <!--IcreaderSettingRB-->
+                            <StackPanel Visibility="{Binding ElementName=IcreaderSettingRB,Path=IsChecked,Converter={StaticResource CheckedToVisibleConverter}}">
+                                <StackPanel  HorizontalAlignment="Center">
+                                    <WrapPanel Margin="0,10,0,0" >
+                                        <Label>可用串口：</Label>
+                                        <ComboBox  Width="160" x:Name="ICComCb" ToolTip="读卡器的接连电脑的COM串口" Padding="4,0,0,0" VerticalContentAlignment="Center"/>
+                                        <Label  Margin="10,0,0,0" Foreground="#363636" Content="例如：COM3"/>
+                                    </WrapPanel>
+                                    <WrapPanel Margin="0,10,0,0" >
+                                        <Label>波 特 率 ：</Label>
+                                        <ComboBox  Width="160" x:Name="ICBaudRateCB" ToolTip="读卡器的波特率" Padding="4,0,0,0" VerticalContentAlignment="Center">
+                                            <ComboBoxItem>1200</ComboBoxItem>
+                                            <ComboBoxItem>2400</ComboBoxItem>
+                                            <ComboBoxItem>4800</ComboBoxItem>
+                                            <ComboBoxItem IsSelected="True">9600</ComboBoxItem>
+                                            <ComboBoxItem >19200</ComboBoxItem>
+                                            <ComboBoxItem >38400</ComboBoxItem>
+                                            <ComboBoxItem >115200</ComboBoxItem>
+                                        </ComboBox>
+                                        <Label x:Name="ICComAlertLabel"  Margin="10,0,0,0" Foreground="#363636" Content="例如：9600"/>
+                                    </WrapPanel>
+
+                                 
+                                   
+                                  
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                                        <myui:IconButton 
+                                            x:Name="saveICBtn" 
+                                            Click="saveICBtn_Click"
+                                            VerticalAlignment="Center" Margin="0,50,0,0"
+                                            VerticalContentAlignment="Center"
+                                            Padding="1"
+                                            Icon="&#xe77a;"
+                                            IsShowIcon="False"                                                                  
+                                            BorderBrush="#e0e0e0" 
+                                            Foreground="#666"
+                                            BorderThickness="1" 
+                                            Width="100"
+                                            Height="35"                 
+                                            CornerRadius="4"                                      
+                                            FontWeight="Bold" 
+                                            HorizontalAlignment="Center"      
+                                            HorizontalContentAlignment="Center"
+                                            MouseOverForeground="Black"
+                                            MouseOverBackground="White" Content="保 存" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                        <!--系统设置-->
+                        <StackPanel  x:Name="SystemSettingBodyPanel" Visibility="{Binding ElementName=systemSettingPanel,Path=Visibility}">
+                            <StackPanel HorizontalAlignment="Left" Visibility="{Binding ElementName=softexpriceRB,Path=IsChecked,Converter= {StaticResource CheckedToVisibleConverter}}">
+                                <WrapPanel Margin="20,4,4,4">
+                                    <Label Content="软件到期日期"/>
+                                    <TextBox x:Name="softExpriceTB"  FontSize="14" Width="200" Text="终身使用，永不过期" TextAlignment="Center" VerticalContentAlignment="Center" />
+                                    <myui:IconButton Icon="&#xe63c;" Width="28" IconSize="14" ToolTip="设定" IconMargin="4" MouseOverBackground="#3ca9fe" MouseOverForeground="White" FontWeight="Black" Click="IconButton_Click"/>
+                                    <Label Content="说明：如 2020-12-12" Foreground="#797979"/>
+                                </WrapPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </myui:MyScrollViewer>
+            </DockPanel>
+        </Border>
+    </Grid>
+   
+</Window>

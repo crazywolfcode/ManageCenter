@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3B942749-48EB-494D-8352-0364219A2A2D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ManageCenter</RootNamespace>
+    <AssemblyName>ManageCenter</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MyCustomControlLibrary">
+      <HintPath>..\..\IntentConnectWeighing\MyCustomControlLibrary\bin\Debug\MyCustomControlLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="MyHelperLibrary">
+      <HintPath>..\..\IntentConnectWeighing\MyHelperLibrary\bin\Debug\MyHelperLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="MyLoadingLib">
+      <HintPath>..\..\MyLoadingLib\MyLoadingLib\bin\Debug\MyLoadingLib.dll</HintPath>
+    </Reference>
+    <Reference Include="SqlDao">
+      <HintPath>..\..\..\libary\SqlDao\SqlDao\bin\Debug\SqlDao.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="behavor\WindowBehavior.cs" />
+    <Compile Include="commom\CommonFunction.cs" />
+    <Compile Include="commom\Constract.cs" />
+    <Compile Include="ControlAttachProperty.cs" />
+    <Compile Include="converter\BillStatusConverter.cs" />
+    <Compile Include="converter\CashBtnVisbilityConvetter.cs" />
+    <Compile Include="converter\CheckedToVisibleConverter.cs" />
+    <Compile Include="converter\PrientTimesboolConverter.cs" />
+    <Compile Include="converter\PrientTimesNowConverter.cs" />
+    <Compile Include="converter\PrientTimesStringConverter.cs" />
+    <Compile Include="converter\UpStatusConverter.cs" />
+    <Compile Include="ui\MaterialManageWindow.xaml.cs" />
+    <Compile Include="ui\PrintBillW.xaml.cs" />
+    <Compile Include="ui\ReportWindow.xaml.cs" />
+    <Compile Include="ui\SetStationWindow.xaml.cs" />
+    <Compile Include="ui\SettingW.xaml.cs" />
+    <Page Include="style\MenuAndTreeViewDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="style\ScrollViewerDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="style\ValueDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="style\WindowStyleDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ui\AboutW.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ui\CarManageWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ui\CashReportWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ui\CompanyManageWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ui\ConnDbWwindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ui\ConnectionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ui\LoginWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ui\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="entity\BillImage.cs" />
+    <Compile Include="entity\BillTaxationMoneyRecord.cs" />
+    <Compile Include="entity\CameraInfo.cs" />
+    <Compile Include="entity\CarInfo.cs" />
+    <Compile Include="entity\CarTraeRecod.cs" />
+    <Compile Include="entity\CommomColumns.cs" />
+    <Compile Include="entity\Company.cs" />
+    <Compile Include="entity\Config.cs" />
+    <Compile Include="entity\Material.cs" />
+    <Compile Include="entity\MaterialCategory.cs" />
+    <Compile Include="entity\MaterialTaxationRecod.cs" />
+    <Compile Include="entity\model\BillTaxationMoneyRecordModel.cs" />
+    <Compile Include="entity\model\CameralInfoModel.cs" />
+    <Compile Include="entity\model\CarInfoModel.cs" />
+    <Compile Include="entity\model\CompanyModel.cs" />
+    <Compile Include="entity\model\ConfigModel.cs" />
+    <Compile Include="entity\model\MaterialModel.cs" />
+    <Compile Include="entity\model\StationModel.cs" />
+    <Compile Include="entity\model\UserModel.cs" />
+    <Compile Include="entity\model\WeighingBillModel.cs" />
+    <Compile Include="entity\Roles.cs" />
+    <Compile Include="entity\Station.cs" />
+    <Compile Include="entity\TableSync.cs" />
+    <Compile Include="entity\User.cs" />
+    <Compile Include="entity\visual\BaseDataClassV.cs" />
+    <Compile Include="entity\visual\HostoryUser.cs" />
+    <Compile Include="entity\WeighingBill.cs" />
+    <Compile Include="enum\commonEnum.cs" />
+    <Compile Include="enum\TableName.cs" />
+    <Compile Include="helper\BitmapHelper.cs" />
+    <Compile Include="helper\DatabaseOPtionHelper.cs" />
+    <Compile Include="helper\TemplateHelper.cs" />
+    <Compile Include="ui\AboutW.xaml.cs" />
+    <Compile Include="ui\CarManageWindow.xaml.cs" />
+    <Compile Include="ui\CashReportWindow.xaml.cs" />
+    <Compile Include="ui\CompanyManageWindow.xaml.cs" />
+    <Compile Include="ui\ConnDbWwindow.xaml.cs" />
+    <Compile Include="ui\ConnectionWindow.xaml.cs" />
+    <Compile Include="ui\LoginWindow.xaml.cs" />
+    <Compile Include="ui\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="ui\MaterialManageWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ui\PrintBillW.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ui\ReportWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ui\SetStationWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ui\SettingW.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Resource Include="Themes\Font\iconfont.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="dll\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Img\Background\background_main.png" />
+    <Resource Include="Themes\Img\Background\bd.png" />
+    <Resource Include="Themes\Img\Background\bd_blue_center.png" />
+    <Resource Include="Themes\Img\Background\bd_blue_center_2.png" />
+    <Resource Include="Themes\Img\Background\bd_blue_last.png" />
+    <Resource Include="Themes\Img\Background\bd_blue_pre.png" />
+    <Resource Include="Themes\Img\Background\enter.png" />
+    <Resource Include="Themes\Img\Background\mover.png" />
+    <Resource Include="Themes\Img\Button\add_enter.png" />
+    <Resource Include="Themes\Img\Button\add_mover.png" />
+    <Resource Include="Themes\Img\Button\add_nomal.png" />
+    <Resource Include="Themes\Img\Button\mie.png" />
+    <Resource Include="Themes\Img\Button\mim.png" />
+    <Resource Include="Themes\Img\Button\min.png" />
+    <Resource Include="Themes\Img\Button\mme.png" />
+    <Resource Include="Themes\Img\Button\mmm.png" />
+    <Resource Include="Themes\Img\Button\mmn.png" />
+    <Resource Include="Themes\Img\Button\mse.png" />
+    <Resource Include="Themes\Img\Button\msm.png" />
+    <Resource Include="Themes\Img\Button\msn.png" />
+    <Resource Include="Themes\Img\Button\mxe.png" />
+    <Resource Include="Themes\Img\Button\mxm.png" />
+    <Resource Include="Themes\Img\Button\mxn.png" />
+    <Resource Include="Themes\Img\Button\ske.png" />
+    <Resource Include="Themes\Img\Button\skm.png" />
+    <Resource Include="Themes\Img\Button\skn.png" />
+    <Resource Include="Themes\Img\Button\xe.png" />
+    <Resource Include="Themes\Img\Button\xm.png" />
+    <Resource Include="Themes\Img\Button\xn.png" />
+    <Resource Include="Themes\Img\Icon\favicon.ico" />
+    <Resource Include="Themes\Img\Icon\favicon128.ico" />
+    <Resource Include="Themes\Img\Icon\favicon32.ico" />
+    <Resource Include="Themes\Img\Icon\favicon48.ico" />
+    <Resource Include="Themes\Img\Icon\favicon64.ico" />
+    <Resource Include="Themes\Img\Icon\icon.png" />
+    <Resource Include="Themes\Img\Icon\setting-ico.png" />
+    <Resource Include="Themes\Img\Icon\transportIcon.png" />
+    <Resource Include="Themes\Img\Icon\yjtp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="aislogo.ico" />
+    <Resource Include="aislogo_48.ico" />
+    <Resource Include="logo.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

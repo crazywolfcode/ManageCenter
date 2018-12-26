@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:myui="clr-namespace:MyCustomControlLibrary;assembly=MyCustomControlLibrary"
+                    xmlns:local="clr-namespace:ManageCenter">
+    
+    <ResourceDictionary.MergedDictionaries>
+        <!--<ResourceDictionary Source="/ManageCenter;component/Lang/DefaultLanguage.xaml"></ResourceDictionary>-->
+        <ResourceDictionary Source="/ManageCenter;component/Style/ValueDictionary.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/ManageCenter;component/Style/ScrollViewerDictionary.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/ManageCenter;component/Style/MenuAndTreeViewDictionary.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/ManageCenter;component/Style/WindowStyleDictionary.xaml"></ResourceDictionary>             
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>
