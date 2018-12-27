@@ -141,7 +141,7 @@
                             <StackPanel Grid.Row="0">
                                 <StackPanel HorizontalAlignment="Center" >
                                     <TextBlock x:Name="PrintTitleTb" Text="云南省曲靖市富源县煤炭管理运补税报表" FontSize="16"  FontWeight="Bold"/>
-                                    <TextBlock x:Name="StationNametb" Text="(雨汪验票站-补税报表)" FontSize="14" Padding="1,6,1,4" HorizontalAlignment="Center" FontWeight="ExtraBold"/>
+                                    <TextBlock x:Name="StationNametb" Text="(补税报表)" FontSize="14" Padding="1,6,1,4" HorizontalAlignment="Center" FontWeight="ExtraBold"/>
                                 </StackPanel>
                                 <WrapPanel>
                                     <TextBlock Text="时间："/>

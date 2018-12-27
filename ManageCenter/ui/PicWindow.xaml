@@ -1,0 +1,89 @@
+﻿<Window x:Class="ManageCenter.PicWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"     
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ManageCenter"
+        xmlns:myui="clr-namespace:MyCustomControlLibrary;assembly=MyCustomControlLibrary"
+        mc:Ignorable="d" ResizeMode="NoResize"
+        Icon="/ManageCenter;component/aislogo_48.ico"
+        WindowStartupLocation="CenterScreen" WindowStyle="None"  
+        Title="磅单截图" Height="480" Width="800"
+        Loaded="Window_Loaded" KeyUp="Window_KeyUp"
+        ContentRendered="Window_ContentRendered" SizeChanged="Window_SizeChanged"
+        Closing="Window_Closing" >
+    <Window.Resources>
+        <local:PrientTimesStringConverter x:Key="PrientTimesStringConverter"/>
+        <local:PrientTimesNowConverter x:Key="PrientTimesNowConverter"/>
+
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#787878"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="1,3,2,2"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style x:Key="ValueStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#727272"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="1,2,2,2"/>
+            <Setter Property="FontSize" Value="15"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition/>
+            <RowDefinition Height="45"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0"  x:Name="headerBorder" MouseMove="headerBorder_MouseMove"  Background="{DynamicResource E4}">
+            <StackPanel Orientation="Horizontal" Background="Transparent" MouseMove="headerBorder_MouseMove">
+                <Image Source="/ManageCenter;component/aislogo_48.ico" Width="48" Height="48" HorizontalAlignment="Left" Margin="10"></Image>
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Left" Margin="0,14,0,0" Text="磅单截图" VerticalAlignment="Center" FontSize="20" FontWeight="Black" />
+                    <WrapPanel>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding number}" ToolTip="编号" VerticalAlignment="Center" FontSize="12" />
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding addTime,StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" ToolTip="验票时间" VerticalAlignment="Center" FontSize="12" Margin="4,0,4,0"/>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding sendCompany}" ToolTip="发货公司" VerticalAlignment="Center" FontSize="12" Margin="4,0,2,0"/>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding receiveCompany}" ToolTip="收货公司" VerticalAlignment="Center" FontSize="12" Margin="4,0,2,0"/>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding materialName}" ToolTip="煤种" VerticalAlignment="Center" FontSize="12"  Margin="4,0,2,0"/>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding carNumber}" VerticalAlignment="Center" FontSize="12" />
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding driver}" VerticalAlignment="Center" FontSize="12" Margin="4,0,2,0"/>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding phone}" VerticalAlignment="Center" FontSize="12" Margin="4,0,2,0"/>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding sendNetWeight}" ToolTip="发货净重" VerticalAlignment="Center" FontSize="12" Margin="4,0,2,0"/>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding netWeight}"  ToolTip="验票净重" VerticalAlignment="Center" FontSize="12"  Margin="4,0,2,0"/>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding limitWeight}" ToolTip="合理磅差" VerticalAlignment="Center" FontSize="12"  Margin="4,0,2,0"/>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding materialTaxation}" ToolTip="超限吨位" VerticalAlignment="Center" FontSize="12"  Margin="4,0,2,0"/>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding overtopMoney,StringFormat={}{0:c} ,ConverterCulture=zh-CN}" ToolTip="应补税款" VerticalAlignment="Center" FontSize="12" Foreground="Red" Margin="4,0,2,0"/>
+                    </WrapPanel>
+                </StackPanel>
+               
+            </StackPanel>
+        </Border>
+        <!--关闭按钮-->
+        <myui:ImageButton Grid.Row="0"  BorderBrush="{x:Null}" Width="27" Height="22"  Margin="0,4,4,0" Content="" x:Name="CloseBtn" HorizontalAlignment="Right" VerticalAlignment="Top"   Click="CloseBtn_Click">
+            <myui:ImageButton.MyMoverBrush>
+                <ImageBrush ImageSource="/ManageCenter;component/Themes/Img/Button/xm.png"/>
+            </myui:ImageButton.MyMoverBrush>
+            <myui:ImageButton.MyEnterBrush>
+                <ImageBrush ImageSource="/ManageCenter;component/Themes/Img/Button/xe.png"/>
+            </myui:ImageButton.MyEnterBrush>
+            <myui:ImageButton.Background>
+                <ImageBrush ImageSource="/ManageCenter;component/Themes/Img/Button/xn.png" TileMode="FlipXY"/>
+            </myui:ImageButton.Background>
+        </myui:ImageButton>
+        <Border  Background="White" Grid.Row="1" BorderThickness="1,0,1,0" BorderBrush="{StaticResource E4}">
+            <myui:MyScrollViewer>
+                <StackPanel VerticalAlignment="Top" x:Name="imagePanel">
+                 
+                </StackPanel>
+            </myui:MyScrollViewer>
+        </Border>
+
+        <Border Grid.Row="2" Background="White"  BorderThickness="1,0,1,1" BorderBrush="{StaticResource E4}">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">              
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

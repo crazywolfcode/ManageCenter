@@ -51,30 +51,10 @@ namespace ManageCenter
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
-            if (isAutoPrint == true)
-            {
-                dispatcherTimer = new System.Windows.Threading.DispatcherTimer() { Interval = TimeSpan.FromSeconds(OutPrintSecend) };
-                dispatcherTimer.Tick += DispatcherTimer_Tick;
-                dispatcherTimer.Start();
-            }
+          
         }
 
-        private void DispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            if (isClickPrint)
-            {
-                dispatcherTimer.Stop();
-                return;
-            }
-            OutPrintSecend -= 1;
-            this.PrintBtn.Content = OutPrintSecend + "s 打印";
-            if (OutPrintSecend <= 0) {
-                this.PrintBtn.Content =  "打印中...";
-                MMessageBox.GetInstance().ShowLoading(MMessageBox.LoadType.Three, "打印中...", mPoit, mSize, "&#xe752;", Orientation.Vertical, "#ffffff", 4);
-                dispatcherTimer.Stop();
-               Print();                
-            }
-        }
+ 
 
         private void generaterQrCode()
         {
@@ -122,71 +102,10 @@ namespace ManageCenter
             }
         }
         #endregion
-
-        private bool isClickPrint = false;
-        private void PrintBtn_Click(object sender, RoutedEventArgs e)
-        {
-            isClickPrint = true;
-            Print();
-            this.PrintBtn.IsEnabled = true;
-        }
-
-        public void Print()
-        {
-            this.PrintBtn.Content = "打印...";
-            this.PrintBtn.IsEnabled = false;
-            this.Cursor = Cursors.Wait;
-            if (isAutoPrint == false && isClickPrint == false)
-            {
-                return;
-            }
-            try
-            {
-                LocalPrintServer printServer = new LocalPrintServer();
-                PrintQueue printQueue = printServer.DefaultPrintQueue;
-                if (!printServer.ConnectToPrintQueue(printQueue)) {
-                    CommonFunction.ShowAlert("打印机不可用");
-                    this.Close();
-                }
-                if (printQueue == null || printQueue.IsOffline == true)
-                {
-                    throw new Exception("打印机不可用！");
-                }
-                string description = "磅单打印";
-                PrintDialog printDialog = new PrintDialog
-                {
-                    CurrentPageEnabled = true,
-                    PrintQueue = printQueue,
-                    PageRange = new PageRange(1)
-                };
-                
-                Panel PrintArea = this.InPanel;
-                printDialog.PrintVisual(PrintArea, description);
-               PrintSystemJobInfo jobInfo = printQueue.GetJob(printQueue.NumberOfJobs);
-                if (jobInfo.IsCompleted) {
-                    WeighingBill bill = new WeighingBill()
-                    {
-                        id = mWeighingBill.id,
-                        number = mWeighingBill.number,
-                        printFrequency = mWeighingBill.printFrequency + 1,
-                        printTime = DateTime.Now
-                    };
-                    DatabaseOPtionHelper.GetInstance().update(bill);
-                }                                
-            }
-            catch (Exception e)
-            {
-                ConsoleHelper.writeLine($"Pint {mWeighingBill.id} failed:{e.Message}");
-                // MMessageBox.GetInstance().ShowBox(e.Message,"打印错错误", MMessageBox.ButtonType.Yes, MMessageBox.IconType.error, Orientation.Vertical);         
-                App.ShowBalloonTip("打印错误", e.Message);
-                this.Close();
-            }
-            finally {
-                this.Close();
-                if (dispatcherTimer != null) {
-                    dispatcherTimer.Stop();
-                }
-            }
+        
+        private void LookPicBtn_Click(object sender, RoutedEventArgs e)
+        {            
+            new PicWindow(mWeighingBill).ShowDialog();
         }
     }
 }

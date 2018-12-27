@@ -81,7 +81,11 @@
     <Compile Include="converter\PrientTimesNowConverter.cs" />
     <Compile Include="converter\PrientTimesStringConverter.cs" />
     <Compile Include="converter\UpStatusConverter.cs" />
+    <Compile Include="entity\model\BillIamgeModel.cs" />
     <Compile Include="ui\MaterialManageWindow.xaml.cs" />
+    <Compile Include="ui\PicWindow.xaml.cs">
+      <DependentUpon>PicWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ui\PrintBillW.xaml.cs" />
     <Compile Include="ui\ReportWindow.xaml.cs" />
     <Compile Include="ui\SetStationWindow.xaml.cs" />
@@ -188,6 +192,10 @@
     <Page Include="ui\MaterialManageWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ui\PicWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ui\PrintBillW.xaml">
       <Generator>MSBuild:Compile</Generator>

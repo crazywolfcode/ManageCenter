@@ -166,6 +166,10 @@
                         <MenuItem Header="车辆信息列表" x:Name="CarManageMI"   Click="MenuItem_Click"></MenuItem>
                     </MenuItem>
                 </MenuItem>
+                <MenuItem Header="数据报表">
+                    <MenuItem Header="磅单列表" Icon="&#xe6df;"  x:Name="BillReporetMI"  Click="MenuItem_Click"/>
+                    <MenuItem Header="补税报表" Icon="&#xe904;" x:Name="TaxationReporetMI"  Click="MenuItem_Click"/>
+                </MenuItem>
                 <MenuItem Header="班助(H)" >
                     <MenuItem Header="关于软件" Icon="&#xe668;" x:Name="AboutMI"  Click="MenuItem_Click"/>
                     <MenuItem Header="联系方试" Icon="&#xe8be;" x:Name="ConnMeMI"  Click="MenuItem_Click"/>
@@ -191,7 +195,7 @@
                         <TextBlock x:Name="SoftExpiredAlertTB" Text="系统将在 30 天后服务到期" Margin="10,4,0,0"/>
                     </WrapPanel>
                 </StatusBarItem>
-                <StatusBarItem Visibility="Collapsed">
+                <StatusBarItem HorizontalAlignment="Right" Margin="4,0,14,0">
                     <TextBlock x:Name="currTimeTb" Text="2018-12-12 00:00:00" FontSize="14" FontWeight="Black" HorizontalAlignment="Center" />
                 </StatusBarItem>
             </StatusBar>

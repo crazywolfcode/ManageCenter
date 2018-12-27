@@ -35,13 +35,12 @@ namespace ManageCenter
             this.EndDatePicker.Text = now.ToString("yyyy年MM月dd日");
             this.EndDatePicker.DisplayDateEnd = now;
             this.StratDatePicker.DisplayDateEnd = now;
-            this.PrintTitleTb.Text = ConfigurationHelper.GetConfig(ConfigItemName.PrintTitle.ToString());
-            this.StationNametb.Text = "(" + App.mStation.name + "-验票报表)";          
+            this.PrintTitleTb.Text = ConfigurationHelper.GetConfig(ConfigItemName.PrintTitle.ToString());         
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
-            this.StationCb.ItemsSource = new List<Station>() { App.mStation };
+            this.StationCb.ItemsSource = StationModel.GetList();
             this.StationCb.SelectedIndex = 0;
             LoadData();
         }
@@ -470,7 +469,8 @@ namespace ManageCenter
 
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            //TODO
+            WeighingBill bill = (WeighingBill)this.ReportDataGrid.SelectedItem;
+            new PicWindow(bill).ShowDialog();
         }
 
         private void PrintSelectBtn_Click(object sender, RoutedEventArgs e)

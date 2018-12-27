@@ -143,9 +143,14 @@ namespace ManageCenter
                     }         
                     break;
                 case "UserManagerMI":
-
+                    
                     break;
-
+                case "BillReporetMI":
+                    new ReportWindow().ShowDialog();
+                    break;
+                case "TaxationReporetMI":
+                    new CashReportWindow().ShowDialog();
+                    break;
                 case "CarManageMI":
                     new CarManageWindow().ShowDialog();
                     break;

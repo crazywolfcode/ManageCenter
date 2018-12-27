@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using MyCustomControlLibrary;
 
 namespace ManageCenter
@@ -71,6 +72,28 @@ namespace ManageCenter
         {
             return string.Format(connectionStringTemplate, db, ip, user, pwd, port);
         }
-    }
+        /// <summary>
+        /// CoMmon Function Library
+        /// </summary>
+
+
+            public static BitmapImage getImageSource(String uri)
+            {
+
+                BitmapImage bmp = new BitmapImage();
+                try
+                {
+                    bmp.BeginInit();//初始化
+                    bmp.UriSource = new Uri(uri);//设置图片路径
+                    bmp.EndInit();//结束初始化
+                }
+                catch
+                {
+
+                }
+                return bmp;
+            }
+
+        }
 }
 

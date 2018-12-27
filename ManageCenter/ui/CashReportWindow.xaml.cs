@@ -30,13 +30,12 @@ namespace ManageCenter
             this.EndDatePicker.Text = now.ToString("yyyy年MM月dd日");
             this.EndDatePicker.DisplayDateEnd = now;
             this.StratDatePicker.DisplayDateEnd = now;
-            this.PrintTitleTb.Text = ConfigurationHelper.GetConfig(ConfigItemName.CashReportTitle.ToString());
-            this.StationNametb.Text = "(" + App.mStation.name + "-补税记录)";          
+            this.PrintTitleTb.Text = ConfigurationHelper.GetConfig(ConfigItemName.CashReportTitle.ToString());          
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
-            this.StationCb.ItemsSource = new List<Station>() { App.mStation };
+            this.StationCb.ItemsSource = StationModel.GetList();
             this.StationCb.SelectedIndex = 0;
             LoadData();
         }
