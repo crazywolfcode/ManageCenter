@@ -187,7 +187,7 @@
         <StackPanel Grid.Row="6">
             <StatusBar Height="28" Background="{DynamicResource myBlueDrak}" Foreground="White" HorizontalContentAlignment="Center" x:Name="StatusBarSb">
                 <StatusBarItem>
-                    <TextBlock Text="StatusBar"/>
+                    <TextBlock Text="Copyright © Clf 版权所有"/>
                 </StatusBarItem>              
                 <StatusBarItem x:Name="SoftExpiredSBI" Visibility="Collapsed">
                     <WrapPanel Margin="20,0,20,0">
