@@ -39,5 +39,6 @@ namespace ManageCenter
         {
             return DatabaseOPtionHelper.GetInstance().insert(material);
         }
+        
     }
 }

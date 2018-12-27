@@ -17,11 +17,21 @@
             <RowDefinition Height="35"/>
             <RowDefinition Height="40"/>
             <RowDefinition />
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0">
             <StackPanel>
-                <StackPanel Height="34" x:Name="ToolBarPanel" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">                  
+                <StackPanel Height="34" x:Name="ToolBarPanel" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <myui:IconButton           
+                            x:Name="AddTabBtn"
+                            Click="AddTabBtn_Click"
+                           IsTransparency="True"
+                           MouseOverForeground="{DynamicResource myBlue}"
+                           VerticalAlignment="Bottom" ToolTip="添加煤种"
+                           IsShowIcon="True" Icon="&#xe50d;" IconSize="28"
+                           Width="30" Height="30" IconMargin="-2,0,0,0"
+                            Margin="0,0,4,0"
+                         />
                     <myui:IconButton           
                             x:Name="SearchTabBtn"
                             Click="SearchTabBtn_Click"
@@ -57,7 +67,7 @@
         </Border>
         <!--search Border-->
         <Border x:Name="CenderBorder" Grid.Row="1" >
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,4,0,0" x:Name="searchAreaPanel" Height="40">               
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,4,0,0" x:Name="searchAreaPanel" Height="50">               
                     <TextBlock Style="{StaticResource AlertTbStyle}" Text="物料信息:"/>
                 <ComboBox x:Name="MaterialNameCb" DisplayMemberPath="name" Style="{StaticResource ValueCbStyle}" Width="150" SelectionChanged="MaterialNameCb_SelectionChanged" TextBoxBase.TextChanged="MaterialNameCb_TextChanged"/>
                 <myui:IconButton 
@@ -133,10 +143,24 @@
                                         <DataGridTemplateColumn Header="操作" >
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
+                                                    <WrapPanel>
                                                     <myui:IconButton Icon="&#xe8a7;" IsTransparency="False" IsShowIcon="True" IconSize="22" ToolTip="调整税价" Width="30"  x:Name="ResetTraeBtn"
                                                          Background="White" IconMargin="0,-11,0,0" Margin="2,0,0,0"
                                                          MouseOverBackground="#3ca9fe" Foreground="#3ca9fe" MouseOverForeground="White"
                                                          Tag="{Binding}" Click="ResetTraeBtn_Click"/>
+                                                        <myui:IconButton Icon="&#xe74e;" IsTransparency="False" IsShowIcon="True" IconSize="22" ToolTip="修改" Width="30"  x:Name="updateBtn"
+                                                         Background="White" IconMargin="0,-11,0,0" Margin="2,0,0,0"
+                                                         MouseOverBackground="#3ca9fe" Foreground="#3ca9fe" MouseOverForeground="White"
+                                                         Tag="{Binding}" Click="updateBtn_Click"/>
+                                                        <myui:IconButton               
+                                                            x:Name="DeleteBtn"  Click="DeleteBtn_Click"
+                                                            IsTransparency="True"  Tag="{Binding}" 
+                                                            MouseOverForeground="Red" ToolTip="删除"
+                                                            VerticalAlignment="Bottom"
+                                                            IsShowIcon="True" Icon="&#xe615;" IconSize="22"
+                                                            Width="30" Height="30" IconMargin="0,0,0,-4"
+                                                            Margin="4,0,4,0" />
+                                                    </WrapPanel>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>

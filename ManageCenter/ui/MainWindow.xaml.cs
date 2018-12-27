@@ -155,7 +155,7 @@ namespace ManageCenter
                     new CarManageWindow().ShowDialog();
                     break;
                 case "AddMaterialMI":
-
+                    new MaterialManageWindow().ShowDialog();
                     break;
                 case "MaterialManageMI":
                     new MaterialManageWindow().ShowDialog();

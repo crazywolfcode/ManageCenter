@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace ManageCenter
@@ -181,19 +182,63 @@ namespace ManageCenter
 
         private void DataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
         {
-            e.Row.Header = e.Row.GetIndex() + 1;           
+            e.Row.Header = e.Row.GetIndex() + 1;
+            Material material = (Material)e.Row.DataContext;
+
+            if (material.currTaxation <= 0 )
+            {
+                e.Row.Foreground = Brushes.Red;
+            }
         }
 
 
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            //TODO
+            //TODO 查看调价记录
         }
 
         private void ResetTraeBtn_Click(object sender, RoutedEventArgs e)
         {
-            MMessageBox.Result result = MMessageBox.GetInstance().ShowBox("无权限操作", "提示", MMessageBox.ButtonType.Yes, MMessageBox.IconType.Info, Orientation.Vertical, "好");
-            return;
+
+            if (App.currentUser.roleLevel != (int)RoleLevelType.JGY) {
+                MMessageBox.Result result = MMessageBox.GetInstance().ShowBox("非监管人员，无权限操作", "提示", MMessageBox.ButtonType.Yes, MMessageBox.IconType.Info, Orientation.Vertical, "好");
+                return;
+            }
+           
+        }
+
+        private void AddTabBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new MaterailAddWindow().ShowDialog();
+            LoadData();
+        }
+
+        private void updateBtn_Click(object sender, RoutedEventArgs e)
+        {
+            IconButton button = sender as IconButton;
+            Material material = button.Tag as Material;
+            new MaterailAddWindow(material).ShowDialog();
+            LoadData();
+        }
+
+        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            IconButton button = sender as IconButton;
+            Material material = button.Tag as Material;
+            material.isDelete = 1;
+            material.deleteTime = DateTime.Now;
+            material.lastUpdateTime = DateTime.Now;
+            material.lastUpdateUserId = App.currentUser.id;
+            material.lastUpdateUserName = App.currentUser.name;
+            int res = DatabaseOPtionHelper.GetInstance().update(material);
+            if (res > 0)
+            {
+                CommonFunction.ShowSuccessAlert("删除成功！");
+                LoadData();
+            }
+            else {
+                CommonFunction.ShowSuccessAlert("删除失败！");
+            }
         }
     }
 }

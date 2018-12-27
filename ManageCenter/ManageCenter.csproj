@@ -93,6 +93,9 @@
     <Compile Include="ui\ReportWindow.xaml.cs" />
     <Compile Include="ui\SetStationWindow.xaml.cs" />
     <Compile Include="ui\SettingW.xaml.cs" />
+    <Compile Include="ui\MaterailAddWindow.xaml.cs">
+      <DependentUpon>MaterailAddWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ui\UserAddWindow.xaml.cs">
       <DependentUpon>UserAddWindow.xaml</DependentUpon>
     </Compile>
@@ -218,6 +221,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ui\SettingW.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ui\MaterailAddWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

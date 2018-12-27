@@ -166,7 +166,7 @@
                         <MenuItem Header="车辆信息列表" x:Name="CarManageMI"   Click="MenuItem_Click"></MenuItem>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="数据报表">
+                <MenuItem Header="数据报表" >
                     <MenuItem Header="磅单列表" Icon="&#xe6df;"  x:Name="BillReporetMI"  Click="MenuItem_Click"/>
                     <MenuItem Header="补税报表" Icon="&#xe904;" x:Name="TaxationReporetMI"  Click="MenuItem_Click"/>
                 </MenuItem>

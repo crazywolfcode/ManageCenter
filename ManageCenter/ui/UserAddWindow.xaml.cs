@@ -31,6 +31,17 @@ namespace ManageCenter
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            if (mUser != null)
+            {
+                this.Title = "修改用户";
+                this.BodyTitle.Text = "修改用户";
+            }
+            else
+            {
+                this.Title = "添加用户";
+                this.BodyTitle.Text = "添加用户";
+            }
+
             roleList = RolesModel.GetList();
             this.RolesCb.ItemsSource = roleList;
 
@@ -99,6 +110,9 @@ namespace ManageCenter
             if (mUser != null)
             {
                 isInsert = false;
+                mUser.lastUpdateTime = DateTime.Now;
+                mUser.lastUpdateUserId = App.currentUser.id;
+                mUser.lastUpdateUserName = App.currentUser.name;
             }
             else
             {
