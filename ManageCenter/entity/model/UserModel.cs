@@ -19,5 +19,26 @@ namespace ManageCenter
             }
             return null;
         }
+
+        
+
+        public static List<User> GetByRoleLevel(int level)
+        {
+            List<User> list = new List<User>();
+            String order =UserColumns.name.ToString();
+            String condition = UserColumns.role_level.ToString() + "  ="+level;
+            String sql = DatabaseOPtionHelper.GetInstance().getSelectSql(TableName.user.ToString(), null, condition, null, null, order);
+            list = DatabaseOPtionHelper.GetInstance().select<User>(sql);
+            return list;
+        }
+
+        internal static bool CheckUserByPhone(string phone)
+        {
+            List<User> list = new List<User>();           
+            String condition = UserColumns.phone.ToString() + "  =" + phone;
+            String sql = DatabaseOPtionHelper.GetInstance().getSelectSql(TableName.user.ToString(), null, condition, null, null, null,1);
+            list = DatabaseOPtionHelper.GetInstance().select<User>(sql);
+            return list.Count>0;
+        }
     }
 }

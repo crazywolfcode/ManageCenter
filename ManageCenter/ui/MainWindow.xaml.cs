@@ -143,7 +143,7 @@ namespace ManageCenter
                     }         
                     break;
                 case "UserManagerMI":
-                    
+                    new UserWindow().ShowDialog();
                     break;
                 case "BillReporetMI":
                     new ReportWindow().ShowDialog();

@@ -53,9 +53,7 @@ namespace ManageCenter
         {
           
         }
-
- 
-
+        
         private void generaterQrCode()
         {
             var bitmap = MyHelper.QrCode.QrCodeHelper.GenerateQrCode(mWeighingBill.number, 100, 100);

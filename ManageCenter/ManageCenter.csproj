@@ -82,6 +82,9 @@
     <Compile Include="converter\PrientTimesStringConverter.cs" />
     <Compile Include="converter\UpStatusConverter.cs" />
     <Compile Include="entity\model\BillIamgeModel.cs" />
+    <Compile Include="entity\model\RolesModel.cs" />
+    <Compile Include="entity\visual\RoleUserV.cs" />
+    <Compile Include="enum\ResourceName.cs" />
     <Compile Include="ui\MaterialManageWindow.xaml.cs" />
     <Compile Include="ui\PicWindow.xaml.cs">
       <DependentUpon>PicWindow.xaml</DependentUpon>
@@ -90,6 +93,12 @@
     <Compile Include="ui\ReportWindow.xaml.cs" />
     <Compile Include="ui\SetStationWindow.xaml.cs" />
     <Compile Include="ui\SettingW.xaml.cs" />
+    <Compile Include="ui\UserAddWindow.xaml.cs">
+      <DependentUpon>UserAddWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ui\UserWindow.xaml.cs">
+      <DependentUpon>UserWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="style\MenuAndTreeViewDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -170,7 +179,6 @@
     <Compile Include="entity\Station.cs" />
     <Compile Include="entity\TableSync.cs" />
     <Compile Include="entity\User.cs" />
-    <Compile Include="entity\visual\BaseDataClassV.cs" />
     <Compile Include="entity\visual\HostoryUser.cs" />
     <Compile Include="entity\WeighingBill.cs" />
     <Compile Include="enum\commonEnum.cs" />
@@ -212,6 +220,14 @@
     <Page Include="ui\SettingW.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ui\UserAddWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ui\UserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
