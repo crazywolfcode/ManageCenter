@@ -15,9 +15,9 @@
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition />
             <RowDefinition Height="50"/>
+            <RowDefinition />
+            <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0">
             <StackPanel>
@@ -67,7 +67,7 @@
         </Border>
         <!--search Border-->
         <Border x:Name="CenderBorder" Grid.Row="1" >
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,4,0,0" x:Name="searchAreaPanel" Height="50">               
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,4,0,0" x:Name="searchAreaPanel" Height="40">               
                     <TextBlock Style="{StaticResource AlertTbStyle}" Text="物料信息:"/>
                 <ComboBox x:Name="MaterialNameCb" DisplayMemberPath="name" Style="{StaticResource ValueCbStyle}" Width="150" SelectionChanged="MaterialNameCb_SelectionChanged" TextBoxBase.TextChanged="MaterialNameCb_TextChanged"/>
                 <myui:IconButton 

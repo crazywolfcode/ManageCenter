@@ -34,11 +34,19 @@ using System.Text;
 
 	 public String materialName{ get; set; }
 
-	 /// <summary>
-	 /// 可空:YES
-	 /// </summary>
+        /// <summary>
+        /// 注释:税费单价
+        /// 可空:NO
+        ///默认值
+        /// </summary>
 
-	 public DateTime startTime{ get; set; }
+        public Double materialTaxation { get; set; }
+
+        /// <summary>
+        /// 可空:YES
+        /// </summary>
+
+        public DateTime startTime{ get; set; }
 
 	 /// <summary>
 	 /// 可空:YES

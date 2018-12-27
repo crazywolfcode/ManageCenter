@@ -481,6 +481,7 @@ namespace ManageCenter
                 return;
             }
             new PrintBillW(bill).ShowDialog();
+            LoadData();
         }
         private Station mStation;
         private void StationCb_SelectionChanged(object sender, SelectionChangedEventArgs e)

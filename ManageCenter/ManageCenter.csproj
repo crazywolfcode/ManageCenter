@@ -82,10 +82,17 @@
     <Compile Include="converter\PrientTimesStringConverter.cs" />
     <Compile Include="converter\UpStatusConverter.cs" />
     <Compile Include="entity\model\BillIamgeModel.cs" />
+    <Compile Include="entity\model\MaterialTaxationRecordModel.cs" />
     <Compile Include="entity\model\RolesModel.cs" />
     <Compile Include="entity\visual\RoleUserV.cs" />
     <Compile Include="enum\ResourceName.cs" />
     <Compile Include="ui\MaterialManageWindow.xaml.cs" />
+    <Compile Include="ui\MaterialPriceWindow.xaml.cs">
+      <DependentUpon>MaterialPriceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ui\MaterialTaxationRecordWindow.xaml.cs">
+      <DependentUpon>MaterialTaxationRecordWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ui\PicWindow.xaml.cs">
       <DependentUpon>PicWindow.xaml</DependentUpon>
     </Compile>
@@ -203,6 +210,14 @@
     <Page Include="ui\MaterialManageWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ui\MaterialPriceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ui\MaterialTaxationRecordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ui\PicWindow.xaml">
       <SubType>Designer</SubType>

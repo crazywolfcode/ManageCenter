@@ -34,6 +34,7 @@ namespace ManageCenter
                 this.Title = "修改煤种";
                 this.BodyTitle.Text = "修改煤种";
                 this.nameTb.Text = mMaterial.name;
+                this.LimitTb.Text = mMaterial.limitTone.ToString();
             }
             else {
                 this.Title = "添加煤种";
@@ -101,19 +102,48 @@ namespace ManageCenter
                     addUserName = App.currentUser.name,
                     status = 1,
                 };
-            }
+            }            
 
             if (string.IsNullOrEmpty(this.nameTb.Text.Trim())) {
                 CommonFunction.ShowErrorAlert("煤种名称不能为空！");
                 return;
             }
-            mMaterial.name = this.nameTb.Text.Trim();
-            if (MaterialModel.GetByName(mMaterial.name) !=null) {
-                CommonFunction.ShowErrorAlert("煤种名称已经存在！");
-                mMaterial.name = null;
-                return;
-            }
 
+            if (isInsert == false)
+            {
+                if (mMaterial.name != this.nameTb.Text.Trim())
+                {
+                    mMaterial.name = this.nameTb.Text.Trim();
+                    if (MaterialModel.GetByName(mMaterial.name) != null)
+                    {
+                        CommonFunction.ShowErrorAlert("煤种名称已经存在！");
+                        mMaterial.name = null;
+                        return;
+                    }
+                }
+            }
+            else {
+                mMaterial.name = this.nameTb.Text.Trim();
+                if (MaterialModel.GetByName(mMaterial.name) != null)
+                {
+                    CommonFunction.ShowErrorAlert("煤种名称已经存在！");
+                    mMaterial.name = null;
+                    return;
+                }
+            }         
+            if (!String.IsNullOrEmpty(this.LimitTb.Text.Trim()))
+            {
+                try
+                {
+                    Double d = Convert.ToDouble(this.LimitTb.Text.Trim());
+                    mMaterial.limitTone = d;
+                }
+                catch
+                {
+                    CommonFunction.ShowErrorAlert("合理磅差，输入不正确！");
+                    return;
+                }
+            }
             int res = 0;
             if (isInsert == true)
             {

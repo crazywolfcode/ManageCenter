@@ -209,6 +209,7 @@ namespace ManageCenter
         id,
         material_id,
         material_name,
+        material_taxation,
         start_time,
         end_time,
         operator_id,

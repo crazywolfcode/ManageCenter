@@ -26,8 +26,8 @@
                            x:Name="PrintSelectBtn"  Click="PrintSelectBtn_Click"
                            IsTransparency="True"
                            MouseOverForeground="{DynamicResource myBlue}"
-                           VerticalAlignment="Bottom" ToolTip="打印选中"
-                           IsShowIcon="True" Icon="&#xe65b;" IconSize="28"
+                           VerticalAlignment="Bottom" ToolTip="查看详情"
+                           IsShowIcon="True" Icon="&#xe60c;" IconSize="28"
                            Width="30" Height="30" IconMargin="-2,0,0,0"
                             Margin="0,0,4,0" />
                     <myui:IconButton           

@@ -199,12 +199,14 @@ namespace ManageCenter
 
         private void ResetTraeBtn_Click(object sender, RoutedEventArgs e)
         {
-
             if (App.currentUser.roleLevel != (int)RoleLevelType.JGY) {
                 MMessageBox.Result result = MMessageBox.GetInstance().ShowBox("非监管人员，无权限操作", "提示", MMessageBox.ButtonType.Yes, MMessageBox.IconType.Info, Orientation.Vertical, "好");
                 return;
             }
-           
+            IconButton button = sender as IconButton;
+            Material material = button.Tag as Material;
+            new MaterialTaxationRecordWindow(material).ShowDialog();
+            LoadData();
         }
 
         private void AddTabBtn_Click(object sender, RoutedEventArgs e)
