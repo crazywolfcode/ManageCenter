@@ -142,6 +142,12 @@ namespace ManageCenter
                         CommonFunction.ShowAlert("无权操作");
                     }         
                     break;
+                case "StationanagerMI":
+                    new StationManageWondow().ShowDialog();
+                    break;
+                case "passwordMI":
+                    new PasswordWindow().Show();
+                    break;
                 case "UserManagerMI":
                     new UserWindow().ShowDialog();
                     break;

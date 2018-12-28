@@ -36,5 +36,16 @@ namespace ManageCenter
             return list;
         }
 
+        internal static Station GetByName(string name)
+        {
+            List<Station> list = new List<Station>();
+            string condition = StationColumns.name.ToString() + $"=  '{name}'";
+            String sql = DatabaseOPtionHelper.GetInstance().getSelectSql(TableName.station.ToString(), null, condition,null,null,null,1);
+            list = DatabaseOPtionHelper.GetInstance().select<Station>(sql);
+            if (list.Count > 0) {
+                return list[0];
+            }
+            return null;
+        }
     }
 }

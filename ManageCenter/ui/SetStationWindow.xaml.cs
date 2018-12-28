@@ -29,6 +29,22 @@ namespace ManageCenter
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            List<Station> list = StationModel.GetList();      
+            this.StationCb.ItemsSource = list;          
+        }
+
+        private void Window_ContentRendered(object sender, EventArgs e)
+        {
+            if (this.StationCb.Items.Count <= 0) {
+                MyCustomControlLibrary.MMessageBox.Result result = MyCustomControlLibrary.MMessageBox.GetInstance().ShowBox("未初始化监管中心，现在创建", "提示", MyCustomControlLibrary.MMessageBox.ButtonType.YesNo, MyCustomControlLibrary.MMessageBox.IconType.Info, Orientation.Vertical, "好", "不了");
+                if (result == MyCustomControlLibrary.MMessageBox.Result.Yes)
+                {
+                    new StationAddWindow().ShowDialog();
+                    loadData();
+                }
+            }
+        }
+        private void loadData() {
             List<Station> list = StationModel.GetList();
             this.StationCb.ItemsSource = list;
         }
@@ -83,5 +99,6 @@ namespace ManageCenter
                 this.Close();     
             }
         }
+
     }
 }

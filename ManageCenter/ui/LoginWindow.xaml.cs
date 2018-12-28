@@ -126,11 +126,11 @@ namespace ManageCenter
             System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ThreadStart(delegate
             {
                 String password = pwdStr;
-                if (hostoryUser ==null || hostoryUser.isRemberPwd == false)
+                if (this.IsRemberPwd == false || hostoryUser ==null || hostoryUser.isRemberPwd == false)
                 {
                     password = EncryptHelper.MD5Encrypt(pwdStr, false);
                 }
-                User user = UserModel.Login(mobile, password);
+                User user = UserModel.Login(mobile, password);             
                 this.Dispatcher.Invoke(new Action(delegate
                 {
                     if (user != null)
@@ -280,6 +280,7 @@ namespace ManageCenter
                     this.AutoLoginCbox.IsChecked = false;
                     this.pwdPb.Password = String.Empty;
                     hostoryUser = null;
+                    this.mobileTb.SelectedIndex = -1;
             }
             }
         }

@@ -132,7 +132,7 @@ namespace ManageCenter
 
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (App.currentUser.roleLevel == (int)RoleLevelType.JGY)
+            if (App.currentUser.roleLevel >= (int)RoleLevelType.JGY)
             {
                 new UserAddWindow().ShowDialog();
                 refresData();
@@ -157,6 +157,10 @@ namespace ManageCenter
 
         private void DeleteCompanyBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (currUser.id == App.currentUser.id) {
+                CommonFunction.ShowErrorAlert("自己不能删除自己！");
+                return;
+            }
             currUser.isDelete = 1;
             currUser.deleteTime = DateTime.Now;
             currUser.lastUpdateTime = DateTime.Now;

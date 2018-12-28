@@ -43,7 +43,7 @@
                 <StackPanel VerticalAlignment="Center">
                     <WrapPanel HorizontalAlignment="Center">
                         <TextBlock Text="手机号码：" Padding="3" FontSize="14"/>
-                        <ComboBox x:Name="mobileTb" IsEditable="True" Width="150" Height="25" Padding="3"  FontSize="14" InputScope="Number" SelectionChanged="mobileTb_SelectionChanged" DisplayMemberPath="phone" TextBoxBase.TextChanged="mobileTb_TextChanged"/>
+                        <ComboBox x:Name="mobileTb" IsTextSearchEnabled="False"  IsEditable="True" Width="150" Height="25" Padding="3"  FontSize="14" InputScope="Number" SelectionChanged="mobileTb_SelectionChanged" DisplayMemberPath="phone" TextBoxBase.TextChanged="mobileTb_TextChanged"/>
                     </WrapPanel>
                     <WrapPanel HorizontalAlignment="Center" Margin="0,10,0,10">
                         <TextBlock Text="登陆密码：" Padding="3" FontSize="14"/>

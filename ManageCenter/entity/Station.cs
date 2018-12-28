@@ -57,7 +57,7 @@ using System.Text;
 	 /// 可空:YES
 	 /// </summary>
 
-	 public String detailAddress{ get; set; }
+	 public String address { get; set; }
 
 	 /// <summary>
 	 /// 注释:备注信息
