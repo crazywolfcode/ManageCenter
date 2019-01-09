@@ -302,9 +302,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="dll\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Themes\Img\Background\background_main.png" />
     <Resource Include="Themes\Img\Background\bd.png" />
@@ -349,6 +347,10 @@
     <Resource Include="aislogo.ico" />
     <Resource Include="aislogo_48.ico" />
     <Resource Include="logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="dll\WPFVisifire.Charts.dll" />
+    <Content Include="dll\WPFVisifire.Gauges.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
