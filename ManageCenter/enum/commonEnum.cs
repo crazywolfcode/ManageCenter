@@ -31,6 +31,9 @@ namespace ManageCenter
         IcBaudRate,
         SoftSrartDate,
         SoftEndDate,
+
+        //listener
+        listenerPort,
     }
 
 

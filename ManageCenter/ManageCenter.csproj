@@ -81,11 +81,13 @@
     <Compile Include="converter\PrientTimesNowConverter.cs" />
     <Compile Include="converter\PrientTimesStringConverter.cs" />
     <Compile Include="converter\UpStatusConverter.cs" />
+    <Compile Include="entity\model\BaseDataModel.cs" />
     <Compile Include="entity\model\BillIamgeModel.cs" />
     <Compile Include="entity\model\MaterialTaxationRecordModel.cs" />
     <Compile Include="entity\model\RolesModel.cs" />
     <Compile Include="entity\visual\RoleUserV.cs" />
     <Compile Include="enum\ResourceName.cs" />
+    <Compile Include="http\HttpListenerHelper.cs" />
     <Compile Include="ui\PasswordWindow.xaml.cs" />
     <Compile Include="ui\StationAddWindow.xaml.cs">
       <DependentUpon>StationAddWindow.xaml</DependentUpon>

@@ -414,4 +414,18 @@ namespace ManageCenter
         last_update_user_id,
         last_update_user_name,
     }
+    public enum PublicColumns
+    {
+        id,
+        remark,
+        add_time,
+        status,
+        add_user_id,
+        add_user_name,
+        last_update_time,
+        is_delete,
+        delete_time,
+        last_update_user_id,
+        last_update_user_name,
+    }
 }

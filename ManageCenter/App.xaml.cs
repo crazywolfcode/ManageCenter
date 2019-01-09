@@ -42,6 +42,16 @@ namespace ManageCenter
             Window loginWindow = new LoginWindow();
             Current.MainWindow = loginWindow;
             Current.MainWindow.Show();
+            //监听站点的请求
+            StartListener();
+        }
+        /// <summary>
+        /// 监听站点的请求
+        /// </summary>
+        private void StartListener() {
+            String url = ConfigurationHelper.GetConfig(ConfigItemName.listenerPort.ToString());
+            Thread thread = new Thread(new ThreadStart(delegate { HttpListenerHelper.Start(url); })) {IsBackground =true };
+            thread.Start();
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -174,7 +184,6 @@ namespace ManageCenter
             Thread thread = new Thread(new ThreadStart(InsertOrUpdateAppSettings));
             thread.IsBackground = true;
             thread.Start();
-            //InsertOrUpdateAppSettings();
             SaveTempData();        
             Thread.Sleep(1200);
             //}
@@ -233,7 +242,7 @@ namespace ManageCenter
                         config.configValue = conns[i].ConnectionString;
                         config.addTime = DateTime.Now;
                         config.configType = (int)ConfigType.ClientAppConfig;
-
+                        config.stationName = mStation.name;
                         if (App.currentUser != null)
                         {
                             config.addUserId = App.currentUser.id;
@@ -292,6 +301,7 @@ namespace ManageCenter
                             addTime = DateTime.Now,
                             configName = key,
                             stationId = ConfigurationHelper.GetConfig(ConfigItemName.CurrStationId.ToString()),
+                            stationName = mStation.name,
                             configValue = collection[key].ToString(),
                             configType = (int)ConfigType.ClientAppConfig
                         };

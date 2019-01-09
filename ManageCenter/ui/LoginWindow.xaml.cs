@@ -100,7 +100,7 @@ namespace ManageCenter
                 "&#xe752;",
                 Orientation.Vertical,
                 "#ffffff",
-                5);
+                3);
             string mobile = this.mobileTb.Text.Trim();
             if (this.mobileTb.SelectedIndex >= 0) {
                 mobile = hostoryUser.phone;
@@ -126,7 +126,7 @@ namespace ManageCenter
             System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ThreadStart(delegate
             {
                 String password = pwdStr;
-                if (this.IsRemberPwd == false || hostoryUser ==null || hostoryUser.isRemberPwd == false)
+                if (hostoryUser ==null || hostoryUser.isRemberPwd == false)
                 {
                     password = EncryptHelper.MD5Encrypt(pwdStr, false);
                 }
@@ -136,6 +136,7 @@ namespace ManageCenter
                     if (user != null)
                     {
                         if (user.roleLevel !=(int) RoleLevelType.XTZZ) {
+                         String staid=   App.mStation.id;
                             if (user.stationId != App.mStation.id)
                             {
                                 MMessageBox.GetInstance().ShowBox("禁止登陆", "提示", MMessageBox.ButtonType.Yes, MMessageBox.IconType.warring, Orientation.Horizontal, "好");
