@@ -5,7 +5,7 @@
 
     <!--菜单项MenuItem Template-->
     <ControlTemplate x:Key="IconMenuItemTemplate" TargetType="MenuItem">
-        <Border x:Name="border" Background="Transparent" Height="{TemplateBinding Height}" Opacity="1" >
+        <Border x:Name="border" Background="Transparent" Height="{TemplateBinding Height}" Opacity="1"  CornerRadius="4">
             <Grid VerticalAlignment="Center" Margin="{TemplateBinding Margin}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition x:Name="icon_col" MaxWidth="35" SharedSizeGroup="MenuItemIconColumnGroup"/>

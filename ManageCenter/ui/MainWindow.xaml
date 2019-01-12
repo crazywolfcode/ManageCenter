@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ManageCenter" ResizeMode="CanResizeWithGrip"
+        xmlns:vc="clr-namespace:Visifire.Charts;assembly=WPFVisifire.Charts"
         WindowStartupLocation="CenterScreen" WindowState="Maximized" ContentRendered="Window_ContentRendered"
         xmlns:myui="clr-namespace:MyCustomControlLibrary;assembly=MyCustomControlLibrary"
         Icon="/ManageCenter;component/aislogo_48.ico"
@@ -136,19 +137,20 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <ContextMenu x:Key="ContextMenu" Style="{StaticResource DefaultContextMenu}">
+            <MenuItem x:Name="RefreshContextBtn" Icon="&#xe6d3;" Style="{StaticResource DefaultMenuItem}" IsEnabled="True" Header=" 刷新 " local:ControlAttachProperty.IconSize="18" Click="RefreshContextBtn_Click"/>
+        </ContextMenu>
     </Window.Resources>
     <Grid x:Name="MainBodyGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+           
             <RowDefinition/>
             <RowDefinition Height="28"/>
         </Grid.RowDefinitions>
         <!--菜单-->
-        <DockPanel Background="#3ca9fe" >
+        <DockPanel Background="#3ca9fe" Grid.Row="0">
             <Menu Grid.Row="0"  VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" >
                 <MenuItem Header=" 设置 " VerticalContentAlignment="Center"  Background="#3ca9fe">
                     <MenuItem Header="基本设置" Icon="&#xe650;" x:Name="BaseSettingMI"  Click="MenuItem_Click"/>
@@ -187,10 +189,158 @@
                 <myui:IconButton x:Name="LogoutBtn" Icon="&#xe893;" IsTransparency="True" Width="28" Height="30" IconSize="20" IsShowIcon="True" MouseOverBackground="White" MouseOverForeground="#3ca9fe" ToolTip="退出" Click="LogoutBtn_Click" />
             </WrapPanel>
         </DockPanel>
+        <!--data area-->
+        <Grid Grid.Row="1" ContextMenu="{StaticResource ContextMenu}">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>               
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-  
+            <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource myBlue}" BorderThickness="1">
+                <vc:Chart View3D="True" BorderThickness="0" x:Name="Chart1" Margin="0" Padding="4">
+                    <vc:Chart.Titles >
+                        <vc:Title  Text="站点验票次数对比图" HorizontalAlignment="Center" VerticalAlignment="Top"/>                    
+                    </vc:Chart.Titles>
+                    <vc:Chart.AxesX>
+                        <vc:Axis>
+                            <vc:Axis.AxisLabels>
+                                <vc:AxisLabels Angle="45" Enabled="True"/>
+                            </vc:Axis.AxisLabels>
+                        </vc:Axis>
+                    </vc:Chart.AxesX>
+                    <vc:Chart.AxesY>
+                        <vc:Axis>
+                            <vc:Axis.AxisLabels>
+                                <vc:AxisLabels Angle="-45" Enabled="True"/>
+                            </vc:Axis.AxisLabels>
+                        </vc:Axis>
+                    </vc:Chart.AxesY>
+                    <vc:Chart.Series>
+                        <vc:DataSeries RenderAs="Radar">
+                          
+                        </vc:DataSeries>                        
+                    </vc:Chart.Series>
+                </vc:Chart>
+            </Border>
+
+            <Border Grid.Column="1" Grid.Row="0" BorderBrush="{StaticResource myBlue}" BorderThickness="1">
+                <vc:Chart View3D="True" BorderThickness="0" x:Name="Chart2" Margin="0" Padding="4">
+                    <vc:Chart.Titles >
+                        <vc:Title  Text="站点验票吨数对比图" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    </vc:Chart.Titles>
+                    <vc:Chart.AxesX>
+                        <vc:Axis>
+                            <vc:Axis.AxisLabels>
+                                <vc:AxisLabels Angle="45" Enabled="True"/>
+                            </vc:Axis.AxisLabels>
+                        </vc:Axis>
+                    </vc:Chart.AxesX>
+                    <vc:Chart.AxesY>
+                        <vc:Axis>
+                            <vc:Axis.AxisLabels>
+                                <vc:AxisLabels Angle="-45" Enabled="True"/>
+                            </vc:Axis.AxisLabels>
+                        </vc:Axis>
+                    </vc:Chart.AxesY>
+                    <vc:Chart.Series>                  
+                        <vc:DataSeries RenderAs="Pie" >
+                        
+                        </vc:DataSeries>
+                    </vc:Chart.Series>
+                </vc:Chart>
+            </Border>
+            
+            <Border Grid.Column="2" Grid.Row="0" BorderBrush="{StaticResource myBlue}" BorderThickness="1">
+                <vc:Chart View3D="True" BorderThickness="0" x:Name="Chart3" Margin="0" Padding="4">
+                    <vc:Chart.Titles >
+                        <vc:Title  Text="站点补收税款对比图" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    </vc:Chart.Titles>
+                    <vc:Chart.AxesX>
+                        <vc:Axis>
+                            <vc:Axis.AxisLabels>
+                                <vc:AxisLabels Angle="45" Enabled="True"/>
+                            </vc:Axis.AxisLabels>
+                        </vc:Axis>
+                    </vc:Chart.AxesX>
+                    <vc:Chart.AxesY>
+                        <vc:Axis>
+                            <vc:Axis.AxisLabels>
+                                <vc:AxisLabels Angle="-45" Enabled="True"/>
+                            </vc:Axis.AxisLabels>
+                        </vc:Axis>
+                    </vc:Chart.AxesY>
+                    <vc:Chart.Series>
+                        <vc:DataSeries RenderAs="Doughnut" >
+                            
+                        </vc:DataSeries>
+                    </vc:Chart.Series>
+                </vc:Chart>
+            </Border>
+
+
+            <Border Grid.Column="3" Grid.Row="0" BorderBrush="{StaticResource myBlue}" BorderThickness="1">
+                <vc:Chart  BorderThickness="0" x:Name="Chart4" Margin="0" Padding="4">
+                    <vc:Chart.Titles >
+                        <vc:Title  Text="公司发货吨数对比图" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    </vc:Chart.Titles>
+                    <vc:Chart.AxesX>
+                        <vc:Axis>
+                            <vc:Axis.AxisLabels>
+                                <vc:AxisLabels Angle="45" Enabled="True"/>
+                            </vc:Axis.AxisLabels>
+                        </vc:Axis>
+                    </vc:Chart.AxesX>
+                    <vc:Chart.AxesY>
+                        <vc:Axis>
+                            <vc:Axis.AxisLabels>
+                                <vc:AxisLabels Angle="-45" Enabled="True"/>
+                            </vc:Axis.AxisLabels>
+                        </vc:Axis>
+                    </vc:Chart.AxesY>                   
+                </vc:Chart>
+            </Border>
+
+
+            <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="2" BorderBrush="{StaticResource myBlue}" BorderThickness="1">
+                <vc:Chart View3D="False" BorderThickness="0" x:Name="Chart5" Margin="0" Padding="4">
+                    <vc:Chart.Titles >
+                        <vc:Title  Text="站点验票吨数走趋图" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    </vc:Chart.Titles>
+                    <vc:Chart.AxesX>
+                        <vc:Axis>
+                            <vc:Axis.AxisLabels>
+                                <vc:AxisLabels Angle="45" Enabled="True"/>
+                            </vc:Axis.AxisLabels>
+                        </vc:Axis>
+                    </vc:Chart.AxesX>
+                    <vc:Chart.AxesY>
+                        <vc:Axis>
+                            <vc:Axis.AxisLabels>
+                                <vc:AxisLabels Angle="-45" Enabled="True"/>
+                            </vc:Axis.AxisLabels>
+                        </vc:Axis>
+                    </vc:Chart.AxesY>
+                    <vc:Chart.Series>                
+                        <vc:DataSeries RenderAs="Spline" LegendText="B验票站">
+                        
+                        </vc:DataSeries>
+                  
+                    </vc:Chart.Series>
+                        
+                </vc:Chart>
+            </Border>
+
+        </Grid>
+
         <!--提示区-->
-        <StackPanel Grid.Row="6">
+        <StackPanel Grid.Row="2">
             <StatusBar Height="28" Background="{DynamicResource myBlueDrak}" Foreground="White" HorizontalContentAlignment="Center" x:Name="StatusBarSb">
                 <StatusBarItem>
                     <TextBlock Text="Copyright © Clf 版权所有"/>
