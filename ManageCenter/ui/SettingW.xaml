@@ -25,6 +25,7 @@
                 </StackPanel>
                 <StackPanel x:Name="HeightSettingPanel" Visibility="Collapsed">
                     <RadioButton x:Name="limitSettingRB" GroupName="name"  Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969"   Checked="limitSettingRB_Checked" >合理的磅差</RadioButton>
+                    <RadioButton x:Name="DataAsyncRB" GroupName="name"  Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969"    Checked="DataAsyncRB_Checked" >开启数据同步</RadioButton>
                     <RadioButton x:Name="scaleSettingRB" GroupName="name"  Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969"  Checked="scaleSettingRB_Checked" Visibility="Collapsed">磅称显示器</RadioButton>
                     <RadioButton x:Name="IcreaderSettingRB" GroupName="name"   Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969" Checked="IcreaderSettingRB_Checked" Visibility="Collapsed" >车辆读卡器</RadioButton>
                 </StackPanel>
@@ -97,6 +98,13 @@
                                     <Label Content="说明：以吨为单位，如1.2" Foreground="#797979"/>
                                 </WrapPanel>
 
+                            </StackPanel>
+                            <!--开启数据同步-->
+                            <StackPanel HorizontalAlignment="Left" Visibility="{Binding ElementName=DataAsyncRB,Path=IsChecked,Converter= {StaticResource CheckedToVisibleConverter}}">
+                                <WrapPanel Margin="20,10,10,4">
+                                    <TextBlock  Text="开启数据同步" FontSize="14"  Height="25" Padding="4,4,0,0"/>
+                                    <myui:SwitchButton x:Name="DataSsyncSRB" Icon="&#xe65e;" CheckedIcon="&#xe68f;" IconSize="24" CheckedForeground="{StaticResource myBlue}" Checked="DataSsyncSRB_Checked"  Unchecked="DataSsyncSRB_Unchecked"/>
+                                </WrapPanel>
                             </StackPanel>
                             <!--scaleSettingRB-->
                             <StackPanel Visibility="{Binding ElementName=scaleSettingRB,Path=IsChecked,Converter={StaticResource CheckedToVisibleConverter}}">

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -14,7 +15,9 @@ namespace ManageCenter
         private static string saveErrStr = "保存错误 ";
         private static string contentErrStr = "上传的内容错误 ";
         private static string Nodata = "没有数据 ";
+        private static string NoImageData = "没有图片数据 ";
         private static string ParamErr = "参数错误！";
+        private const  string ImageTableName = "image";
         /// <summary>
         /// 开启监听 
         /// </summary>
@@ -34,11 +37,13 @@ namespace ManageCenter
                 var qs = request.QueryString;
                 String tableName = qs.Get("table");
                 String stationId = String.Empty;
-                String time = string.Empty;              
+                String time = string.Empty;
+                string fileName = string.Empty;
                 try
                 {
                     time = qs.Get("time");
                     stationId = qs.Get("stationid");
+                    fileName = qs.Get("fileName");
                 }
                 catch { }
                 string data = string.Empty;
@@ -49,8 +54,11 @@ namespace ManageCenter
                         data += reader.ReadToEnd();
                     }
                 }
-                NetResult result;
-                if (String.IsNullOrEmpty(data))
+                NetResult result ; 
+                if (!string.IsNullOrEmpty(fileName)) {
+                result =    processImageUp(tableName, fileName,data);
+                }
+               else if (String.IsNullOrEmpty(data))
                 {
                     result = ProcessPull(tableName, time,stationId);
                 }
@@ -76,7 +84,7 @@ namespace ManageCenter
         /// 处理推送上来的数据
         /// </summary>
         /// <param name="tableName"></param>
-        /// <param name="Data"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
         private static NetResult ProcessPush(String tableName, String Data)
         {
@@ -335,6 +343,44 @@ namespace ManageCenter
             }
             return result;
         }
+        /// <summary>
+        /// 接受 处理图片上传
+        /// </summary>
+        private static NetResult processImageUp(string tableName, string filename,String data)
+        {
+            NetResult result = new NetResult() { errCode = 1, msg = "服务器未能处请求", Data = "" };
+            if (String.IsNullOrEmpty(tableName) || tableName.Equals(ImageTableName))
+            {
+                result.msg = ParamErr;
+            }
+            else if (string.IsNullOrEmpty(data))
+            {
+                result.msg = NoImageData;
+            }
+            else {
+                string savePath = MyHelper.ConfigurationHelper.GetConfig(ConfigItemName.imageSavePath.ToString());
+
+             bool b=   MyHelper.FileHelper.FolderExistsCreater(savePath);
+                if (!b)
+                {
+                    result.msg = "服务器保存文件路径错误或拒绝访问！";
+                }
+                else {
+                    try {
+                        String path = Path.Combine(savePath, filename);
+                        MyHelper.FileHelper.Write(path, data);
+                        result.errCode = 0;
+                        result.msg = "图片上传成功";
+                        data = path;
+                    } catch {
+                        result.errCode =1;
+                        result.msg = "服务保存失败！";
+                    }                    
+                }
+            }
+            return result;
+        }
+
         /// <summary>
         /// 拉取数据
         /// </summary>

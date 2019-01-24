@@ -492,5 +492,31 @@ namespace ManageCenter
                 CommonFunction.ShowErrorAlert("保存失败");
             }
         }
+
+        private void DataAsyncRB_Checked(object sender, RoutedEventArgs e)
+        {
+            if (this.IsLoaded == false)
+            {
+                return;
+            }
+            if ("1" == ConfigurationHelper.GetConfig(ConfigItemName.isOpenListence.ToString()))
+            {
+                this.DataSsyncSRB.IsChecked = true;
+            }
+            else
+            {
+                this.DataSsyncSRB.IsChecked = false;
+            }
+        }
+
+        private void DataSsyncSRB_Checked(object sender, RoutedEventArgs e)
+        {
+            ConfigurationHelper.SetConfig(ConfigItemName.isOpenListence.ToString(), "1");
+        }
+
+        private void DataSsyncSRB_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ConfigurationHelper.SetConfig(ConfigItemName.isOpenListence.ToString(), "0");
+        }
     }
 }

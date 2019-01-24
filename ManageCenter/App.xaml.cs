@@ -49,9 +49,16 @@ namespace ManageCenter
         /// 监听站点的请求
         /// </summary>
         private void StartListener() {
-            String url = ConfigurationHelper.GetConfig(ConfigItemName.listenerPort.ToString());
-            Thread thread = new Thread(new ThreadStart(delegate { HttpListenerHelper.Start(url); })) {IsBackground =true };
-            thread.Start();
+            if ("1".Equals(ConfigurationHelper.GetConfig(ConfigItemName.isOpenListence.ToString()))) {
+                try {
+                    String url = ConfigurationHelper.GetConfig(ConfigItemName.listenerPort.ToString());
+                    Thread thread = new Thread(new ThreadStart(delegate { HttpListenerHelper.Start(url); })) { IsBackground = true };
+                    thread.Start();
+                } catch(Exception e) {
+                    MMessageBox.GetInstance().ShowErrorAlert("启动数据端口监听失败！请联系系统作者");
+                    Console.WriteLine("启动数据端口监听失败" + e.Message);
+                }              
+            }          
         }
 
         protected override void OnStartup(StartupEventArgs e)

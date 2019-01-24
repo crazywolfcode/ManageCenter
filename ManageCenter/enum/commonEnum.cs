@@ -34,6 +34,10 @@ namespace ManageCenter
 
         //listener
         listenerPort,
+
+        imageSavePath,
+
+        isOpenListence,//是否开启端口监听
     }
 
 
