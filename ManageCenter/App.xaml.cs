@@ -54,6 +54,7 @@ namespace ManageCenter
                     String url = ConfigurationHelper.GetConfig(ConfigItemName.listenerPort.ToString());
                     Thread thread = new Thread(new ThreadStart(delegate { HttpListenerHelper.Start(url); })) { IsBackground = true };
                     thread.Start();
+                    Console.WriteLine("启动数据端口监听" );
                 } catch(Exception e) {
                     MMessageBox.GetInstance().ShowErrorAlert("启动数据端口监听失败！请联系系统作者");
                     Console.WriteLine("启动数据端口监听失败" + e.Message);

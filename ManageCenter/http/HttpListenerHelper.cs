@@ -17,7 +17,7 @@ namespace ManageCenter
         private static string Nodata = "没有数据 ";
         private static string NoImageData = "没有图片数据 ";
         private static string ParamErr = "参数错误！";
-        private const  string ImageTableName = "image";
+        private const string ImageTableName = "image";
         /// <summary>
         /// 开启监听 
         /// </summary>
@@ -29,10 +29,11 @@ namespace ManageCenter
             listener.Prefixes.Add(url);
             listener.Start();
             while (true)
-            {
+             {
+                
                 HttpListenerContext context = listener.GetContext();
                 HttpListenerRequest request = context.Request;
-                HttpListenerResponse response = context.Response;
+                HttpListenerResponse response = context.Response; 
                 response.StatusCode = 200;
                 var qs = request.QueryString;
                 String tableName = qs.Get("table");
@@ -43,24 +44,25 @@ namespace ManageCenter
                 {
                     time = qs.Get("time");
                     stationId = qs.Get("stationid");
-                    fileName = qs.Get("fileName");
+                    fileName = qs.Get("filename");
                 }
                 catch { }
                 string data = string.Empty;
-                using (System.IO.StreamReader reader = new System.IO.StreamReader(request.InputStream, Encoding.GetEncoding("GB2312")))
+                using (StreamReader reader = new StreamReader(request.InputStream, Encoding.GetEncoding("GB2312")))
                 {
                     if (reader.Peek() > -1)
                     {
                         data += reader.ReadToEnd();
                     }
                 }
-                NetResult result ; 
-                if (!string.IsNullOrEmpty(fileName)) {
-                result =    processImageUp(tableName, fileName,data);
+                NetResult result;
+                if (!string.IsNullOrEmpty(fileName))
+                {                 
+                    result = ProcessImageUp(tableName, fileName, data);
                 }
-               else if (String.IsNullOrEmpty(data))
+                else if (String.IsNullOrEmpty(data))
                 {
-                    result = ProcessPull(tableName, time,stationId);
+                    result = ProcessPull(tableName, time, stationId);
                 }
                 else
                 {
@@ -104,7 +106,8 @@ namespace ManageCenter
                 case "bill_image":
                     try
                     {
-                        BillImage bill = (BillImage)MyHelper.JsonHelper.JsonToObject(Data, typeof(BillImage));
+                        BillImage bill = (BillImage)MyHelper.JsonHelper.JsonToObject(Data, typeof(BillImage));                      
+                        bill.address.Replace("\\", "\\\\");
                         int res = 0;
                         res = DatabaseOPtionHelper.GetInstance().insertOrUpdate(bill);
                         if (res > 0)
@@ -346,10 +349,11 @@ namespace ManageCenter
         /// <summary>
         /// 接受 处理图片上传
         /// </summary>
-        private static NetResult processImageUp(string tableName, string filename,String data)
+        private static NetResult ProcessImageUp(string tableName, string filename, String data)
         {
             NetResult result = new NetResult() { errCode = 1, msg = "服务器未能处请求", Data = "" };
-            if (String.IsNullOrEmpty(tableName) || tableName.Equals(ImageTableName))
+            Console.WriteLine("==有图片在上传" );
+            if (String.IsNullOrEmpty(tableName) || !tableName.Equals(ImageTableName))
             {
                 result.msg = ParamErr;
             }
@@ -357,27 +361,47 @@ namespace ManageCenter
             {
                 result.msg = NoImageData;
             }
-            else {
+            else
+            {            
                 string savePath = MyHelper.ConfigurationHelper.GetConfig(ConfigItemName.imageSavePath.ToString());
-
-             bool b=   MyHelper.FileHelper.FolderExistsCreater(savePath);
+                savePath = Path.Combine(savePath, DateTime.Now.ToShortDateString());
+                bool b = MyHelper.FileHelper.FolderExistsCreater(savePath);           
                 if (!b)
                 {
                     result.msg = "服务器保存文件路径错误或拒绝访问！";
+                    Console.WriteLine("==服务器保存文件路径错误或拒绝访问");
                 }
-                else {
-                    try {
+                else
+                {
+                    try
+                    {
                         String path = Path.Combine(savePath, filename);
+                        //String SplitStr = "\r\n";
+                        //String str = "application/octet-stream\r\n\r\n";
+                        //String boundary = String.Empty;
+                        //String endBoundray = String.Empty;
+                        //boundary = data.Substring(0, data.IndexOf(SplitStr) + SplitStr.Length).Replace(SplitStr,"");
+                        //endBoundray = boundary + "--";
+                        //data.Replace(boundary, "");
+                        //data.Replace(endBoundray, "");
+                        //int prelenth = data.IndexOf(str) + str.Length;
+                        //data = data.Substring(prelenth, data.Length - prelenth);
+                        //data.Replace(SplitStr, "");
                         MyHelper.FileHelper.Write(path, data);
                         result.errCode = 0;
                         result.msg = "图片上传成功";
-                        data = path;
-                    } catch {
-                        result.errCode =1;
+                        Console.WriteLine("==图片上传成功");
+                        result.Data = path;
+                    }
+                    catch
+                    {
+                        result.errCode = 1;
                         result.msg = "服务保存失败！";
-                    }                    
+                        Console.WriteLine("==服务保存失败");
+                    }
                 }
             }
+            Console.WriteLine("==图片上传结束");
             return result;
         }
 
@@ -397,9 +421,9 @@ namespace ManageCenter
             }
             if (String.IsNullOrEmpty(time))
             {
-                time = "2018-01-01 00:00:00";             
+                time = "2018-01-01 00:00:00";
             }
-          
+
             switch (tableName)
             {
                 case "bill_image":
@@ -553,7 +577,8 @@ namespace ManageCenter
                     }
                     break;
                 case "config":
-                    if (ChecledStationid(stationId) == false) {
+                    if (ChecledStationid(stationId) == false)
+                    {
                         result.errCode = 1;
                         result.msg = ParamErr;
                         return result;
@@ -705,8 +730,10 @@ namespace ManageCenter
             return result;
         }
 
-        private static bool ChecledStationid(String id) {
-            if (String.IsNullOrEmpty(id)) {
+        private static bool ChecledStationid(String id)
+        {
+            if (String.IsNullOrEmpty(id))
+            {
                 return false;
             }
             return true;
