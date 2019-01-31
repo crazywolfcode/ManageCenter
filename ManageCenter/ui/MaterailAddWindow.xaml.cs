@@ -87,7 +87,6 @@ namespace ManageCenter
             if (mMaterial != null)
             {
                 isInsert = false;
-                mMaterial.lastUpdateTime = DateTime.Now;
                 mMaterial.lastUpdateUserId = App.currentUser.id;
                 mMaterial.lastUpdateUserName = App.currentUser.name;
             }
@@ -97,7 +96,6 @@ namespace ManageCenter
                 mMaterial = new Material()
                 {
                     id = Guid.NewGuid().ToString(),
-                    addTime = DateTime.Now,
                     addUserId = App.currentUser.id,
                     addUserName = App.currentUser.name,
                     status = 1,
