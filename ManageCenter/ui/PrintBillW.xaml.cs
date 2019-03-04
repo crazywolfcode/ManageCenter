@@ -125,7 +125,6 @@ namespace ManageCenter
             {
                 mWeighingBill.isReceiveMoney = 1;
                 mWeighingBill.overtopMoney = 0;
-                mWeighingBill.lastUpdateTime = DateTime.Now;
                 mWeighingBill.lastUpdateUserId = App.currentUser.id;
                 mWeighingBill.lastUpdateUserName = App.currentUser.name;
                 mWeighingBill.remark = mWeighingBill.remark + $"  被 {App.currentUser.name} 置为正常。";

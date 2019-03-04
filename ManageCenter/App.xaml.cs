@@ -54,6 +54,7 @@ namespace ManageCenter
                     String url = ConfigurationHelper.GetConfig(ConfigItemName.listenerPort.ToString());
                     Thread thread = new Thread(new ThreadStart(delegate { HttpListenerHelper.Start(url); })) { IsBackground = true };
                     thread.Start();
+                    Console.WriteLine("启动数据端口监听" );
                 } catch(Exception e) {
                     MMessageBox.GetInstance().ShowErrorAlert("启动数据端口监听失败！请联系系统作者");
                     Console.WriteLine("启动数据端口监听失败" + e.Message);
@@ -225,8 +226,7 @@ namespace ManageCenter
                         {
                             if (config.configValue != conns[i].ConnectionString)
                             {
-                                config.configValue = conns[i].ConnectionString;
-                                config.lastUpdateTime = DateTime.Now;
+                                config.configValue = conns[i].ConnectionString;                               
                                 if (App.currentUser != null)
                                 {
                                     config.lastUpdateUserId = config.addUserId;
@@ -246,8 +246,7 @@ namespace ManageCenter
                         config.id = Guid.NewGuid().ToString();
                         config.stationId = ConfigurationHelper.GetConfig(ConfigItemName.CurrStationId.ToString());
                         config.configName = conns[i].Name;
-                        config.configValue = conns[i].ConnectionString;
-                        config.addTime = DateTime.Now;
+                        config.configValue = conns[i].ConnectionString;     
                         config.configType = (int)ConfigType.ClientAppConfig;
                         config.stationName = mStation.name;
                         if (App.currentUser != null)
@@ -285,8 +284,7 @@ namespace ManageCenter
                             config = configs[0];
                             if (config.configValue != collection[key].ToString())
                             {
-                                config.configValue = collection[key].ToString();
-                                config.lastUpdateTime = DateTime.Now;
+                                config.configValue = collection[key].ToString();                        
                                 if (App.currentUser != null)
                                 {
                                     config.lastUpdateUserId = App.currentUser.id;
@@ -304,15 +302,14 @@ namespace ManageCenter
                     {
                         config = new Config
                         {
-                            id = Guid.NewGuid().ToString(),
-                            addTime = DateTime.Now,
+                            id = Guid.NewGuid().ToString(),                      
                             configName = key,
                             stationId = ConfigurationHelper.GetConfig(ConfigItemName.CurrStationId.ToString()),
                             stationName = mStation.name,
                             configValue = collection[key].ToString(),
                             configType = (int)ConfigType.ClientAppConfig
                         };
-                        config.lastUpdateTime = config.addTime;
+                
                         if (App.currentUser != null)
                         {
                             config.addUserId = App.currentUser.id;

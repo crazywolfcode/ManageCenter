@@ -110,7 +110,6 @@ namespace ManageCenter
             if (mUser != null)
             {
                 isInsert = false;
-                mUser.lastUpdateTime = DateTime.Now;
                 mUser.lastUpdateUserId = App.currentUser.id;
                 mUser.lastUpdateUserName = App.currentUser.name;
             }
@@ -120,7 +119,6 @@ namespace ManageCenter
                 mUser = new User()
                 {
                     id = Guid.NewGuid().ToString(),
-                    addTime = DateTime.Now,
                     addUserId = App.currentUser.id,
                     addUserName = App.currentUser.name,
                     status = 1,

@@ -92,14 +92,12 @@ namespace ManageCenter
                 return;
             }
             mMaterial.currTaxation = d;
-            mMaterial.lastUpdateTime = DateTime.Now;
             mMaterial.lastUpdateUserId = App.currentUser.id;
             mMaterial.lastUpdateUserName = App.currentUser.name;
 
             MaterialTaxationRecod record = new MaterialTaxationRecod()
             {
                 id = Guid.NewGuid().ToString(),
-                addTime = DateTime.Now,
                 addUserId = App.currentUser.id,
                 addUserName = App.currentUser.name,
                 status = 1,
