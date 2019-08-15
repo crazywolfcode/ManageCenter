@@ -27,10 +27,14 @@ namespace ManageCenter
             StationModel.GetList();
             listener = new HttpListener();
             listener.Prefixes.Add(url);
-            listener.Start();
+            try {
+                listener.Start();
+            } catch (Exception e) {
+                Console.WriteLine("==========HttpListenerHelper 启动数据端口监听失败:" + e.Message);
+                return;
+            }          
             while (true)
-             {
-                
+             {                
                 HttpListenerContext context = listener.GetContext();
                 HttpListenerRequest request = context.Request;
                 HttpListenerResponse response = context.Response; 

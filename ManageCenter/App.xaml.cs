@@ -65,7 +65,6 @@ namespace ManageCenter
         protected override void OnStartup(StartupEventArgs e)
         {
             String assimblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name.ToString();
-
             bool createNew = true;
             EventWaitHandle ProgramStarted = new EventWaitHandle(false, EventResetMode.AutoReset, assimblyName, out createNew);
             if (!createNew)
